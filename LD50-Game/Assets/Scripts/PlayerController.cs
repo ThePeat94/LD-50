@@ -1,4 +1,5 @@
-﻿using Scriptables;
+﻿using Nidavellir.Utils;
+using Scriptables;
 using UnityEngine;
 
 namespace Nidavellir
@@ -10,10 +11,12 @@ namespace Nidavellir
         private Animator m_animator;
         private CharacterController m_characterController;
         private GameObject m_currentInteractable;
+        private GameStateManager m_gameStateManager;
         private InputProcessor m_inputProcessor;
 
         private Vector3 m_moveDirection;
 
+        private Vector2 m_screenBounds;
         public static PlayerController Instance { get; private set; }
 
 
@@ -32,16 +35,28 @@ namespace Nidavellir
             this.m_inputProcessor = this.GetComponent<InputProcessor>();
             this.m_characterController = this.GetComponent<CharacterController>();
             this.m_animator = this.GetComponent<Animator>();
+            this.m_gameStateManager = FindObjectOfType<GameStateManager>();
+        }
+
+        private void Start()
+        {
+            this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         }
 
         // Update is called once per frame
         private void Update()
         {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
+
             this.Move();
             this.TiltSpaceship();
             this.CheckShoot();
         }
 
+        public void Die()
+        {
+        }
 
         private void CheckShoot()
         {
@@ -66,6 +81,10 @@ namespace Nidavellir
         {
             this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
             this.m_characterController.Move(this.m_moveDirection * Time.deltaTime * this.m_playerData.MovementSpeed);
+
+            var pos = this.transform.position;
+            pos.x = Mathf.Clamp(pos.x, -this.m_screenBounds.x, this.m_screenBounds.x);
+            this.transform.position = pos;
         }
     }
 }

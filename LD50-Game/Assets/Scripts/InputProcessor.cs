@@ -10,6 +10,8 @@ namespace Nidavellir
 
         public bool InteractTriggered => this.m_playerInput.Actions.Interact.triggered;
         public bool ShootTriggered => this.m_playerInput.Actions.Shoot.triggered;
+        public bool QuitTriggered => this.m_playerInput.Actions.Quit.triggered;
+        public bool BackToMainTriggered => this.m_playerInput.Actions.BackToMenu.triggered;
 
         private void Awake()
         {
