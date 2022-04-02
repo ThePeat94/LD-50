@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_movementSpeed: 24
   m_rotationSpeed: 0
-  m_acceleration: 6
+  m_acceleration: 100
   m_projectile: {fileID: 5115382433725447431, guid: d82a027d3b4c35d4eae0d378031caff1, type: 3}

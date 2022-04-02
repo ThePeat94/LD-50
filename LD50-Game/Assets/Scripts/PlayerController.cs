@@ -44,17 +44,28 @@ namespace Nidavellir
         private void Start()
         {
             this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+
+            Debug.Log($"MovementSpeed: {this.m_playerData.MovementSpeed}");
+            Debug.Log($"Acceleration: {this.m_playerData.Acceleration}");
+        }
+
+        private void Update()
+        {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
+
+            this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
+            this.CheckShoot();
         }
 
         // Update is called once per frame
-        private void Update()
+        private void FixedUpdate()
         {
             if (this.m_gameStateManager.CurrentState != GameState.Started)
                 return;
 
             this.Move();
             this.TiltSpaceship();
-            this.CheckShoot();
         }
 
         public void Die()
@@ -82,7 +93,6 @@ namespace Nidavellir
 
         protected void Move()
         {
-            this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
             this.m_rigidbody.AddForce(this.m_moveDirection * this.m_playerData.Acceleration, ForceMode.Acceleration);
             var velocity = Vector3.ClampMagnitude(this.m_rigidbody.velocity, this.m_playerData.MovementSpeed);
             this.m_rigidbody.velocity = velocity;
