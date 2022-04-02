@@ -29,16 +29,16 @@ namespace Nidavellir
 
         private void FixedUpdate()
         {
-            foreach (var kvp in this.m_pastFramesSinceLastSpawn)
+            foreach (var key in this.m_pastFramesSinceLastSpawn.Keys.ToList())
             {
-                if (kvp.Value >= kvp.Key.FrameCoolDown)
+                if (this.m_pastFramesSinceLastSpawn[key] >= key.FrameCoolDown)
                 {
-                    this.SpawnObject(kvp.Key);
-                    this.m_pastFramesSinceLastSpawn[kvp.Key] = 0;
+                    this.SpawnObject(key);
+                    this.m_pastFramesSinceLastSpawn[key] = 0;
                 }
                 else
                 {
-                    this.m_pastFramesSinceLastSpawn[kvp.Key]++;
+                    this.m_pastFramesSinceLastSpawn[key]++;
                 }
             }
         }
