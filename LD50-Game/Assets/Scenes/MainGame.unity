@@ -156,7 +156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d2db8e0231b73694294a4a32a2b077ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 24.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d2db8e0231b73694294a4a32a2b077ee, type: 3}
       propertyPath: m_LocalRotation.w
@@ -25279,7 +25279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd46f4a724b4bd681b6f7ab27d3a824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_asteroidPrefab: {fileID: 5349136519152693982, guid: c0769b4991dd60642a7355285f52efcc, type: 3}
+  m_spawnerData:
+  - {fileID: 11400000, guid: 0a92a469385a67844a4f4806178338f4, type: 2}
 --- !u!65 &1065501194
 BoxCollider:
   m_ObjectHideFlags: 0

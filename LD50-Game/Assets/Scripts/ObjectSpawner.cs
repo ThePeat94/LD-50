@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Scriptables;
+using UnityEngine;
 
 namespace Nidavellir
 {
     public class ObjectSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject m_asteroidPrefab;
+        [SerializeField] private List<ObjectSpawnerData> m_spawnerData;
         private BoxCollider m_collider;
 
         private float m_framesSinceLastSpawn;
@@ -13,20 +16,30 @@ namespace Nidavellir
         private float m_maxX;
         private float m_minX;
 
+        private Dictionary<ObjectSpawnerData, int> m_pastFramesSinceLastSpawn;
+
         private void Awake()
         {
             this.m_collider = this.GetComponent<BoxCollider>();
             this.m_maxX = this.m_collider.bounds.extents.x;
             this.m_minX = -this.m_collider.bounds.extents.x;
+
+            this.m_pastFramesSinceLastSpawn = this.m_spawnerData.ToDictionary(o => o, o => 0);
         }
 
         private void FixedUpdate()
         {
-            this.m_framesSinceLastSpawn++;
-            if (this.m_framesSinceLastSpawn >= 30)
+            foreach (var kvp in this.m_pastFramesSinceLastSpawn)
             {
-                this.SpawnAsteroid();
-                this.m_framesSinceLastSpawn = 0;
+                if (kvp.Value >= kvp.Key.FrameCoolDown)
+                {
+                    this.SpawnObject(kvp.Key);
+                    this.m_pastFramesSinceLastSpawn[kvp.Key] = 0;
+                }
+                else
+                {
+                    this.m_pastFramesSinceLastSpawn[kvp.Key]++;
+                }
             }
         }
 
@@ -35,22 +48,23 @@ namespace Nidavellir
             return Random.Range(this.m_minX, this.m_maxX);
         }
 
-        private Vector3 GetRandomTorque()
+        private Vector3 GetRandomTorque(ObjectSpawnerData data)
         {
-            return new(Random.Range(-180f, 181f), Random.Range(-180f, 181f), Random.Range(-180f, 181f));
+            return new Vector3(Random.Range(data.MinRotationSpeed, data.MaxRotationSpeed + 1), Random.Range(data.MinRotationSpeed, data.MaxRotationSpeed + 1),
+                Random.Range(data.MinRotationSpeed, data.MaxRotationSpeed + 1));
         }
 
-        private float GetRandomVelocity()
+        private float GetRandomVelocity(ObjectSpawnerData data)
         {
-            return Random.Range(5f, 31f);
+            return Random.Range(data.MinVelocity, data.MaxVelocity + 1);
         }
 
-        private void SpawnAsteroid()
+        private void SpawnObject(ObjectSpawnerData data)
         {
-            var spawned = Instantiate(this.m_asteroidPrefab, new Vector3(this.GetRandomPositionForX(), this.transform.position.y, this.transform.position.z), Quaternion.identity);
+            var spawned = Instantiate(data.ToSpawn, new Vector3(this.GetRandomPositionForX(), this.transform.position.y, this.transform.position.z), Quaternion.identity);
             var asteroid = spawned.GetComponent<Asteroid>();
-            asteroid.SetConstantVelocity(new Vector3(0f, 0f, -this.transform.forward.z * this.GetRandomVelocity()));
-            asteroid.SetRandomRotation(this.GetRandomTorque());
+            asteroid.SetConstantVelocity(new Vector3(0f, 0f, -this.transform.forward.z * this.GetRandomVelocity(data)));
+            asteroid.SetRandomRotation(this.GetRandomTorque(data));
         }
     }
 }
