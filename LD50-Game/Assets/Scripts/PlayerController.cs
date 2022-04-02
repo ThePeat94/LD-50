@@ -14,7 +14,11 @@ namespace Nidavellir
 
         private Vector3 m_moveDirection;
 
+        private Vector2 m_screenBounds;
+
         public static PlayerController Instance { get; private set; }
+
+        public float VerticalSpeed => this.m_moveDirection.z * this.m_playerData.MovementSpeed;
 
 
         private void Awake()
@@ -34,12 +38,22 @@ namespace Nidavellir
             this.m_animator = this.GetComponent<Animator>();
         }
 
+        private void Start()
+        {
+            this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+            Debug.Log(this.m_screenBounds);
+        }
+
         // Update is called once per frame
         private void Update()
         {
             this.Move();
             this.TiltSpaceship();
             this.CheckShoot();
+        }
+
+        private void LateUpdate()
+        {
         }
 
 
@@ -66,6 +80,10 @@ namespace Nidavellir
         {
             this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
             this.m_characterController.Move(this.m_moveDirection * Time.deltaTime * this.m_playerData.MovementSpeed);
+
+            var pos = this.transform.position;
+            pos.x = Mathf.Clamp(pos.x, -this.m_screenBounds.x, this.m_screenBounds.x);
+            this.transform.position = pos;
         }
     }
 }
