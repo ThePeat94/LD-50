@@ -1,4 +1,5 @@
-﻿using Scriptables;
+﻿using Nidavellir.Utils;
+using Scriptables;
 using UnityEngine;
 
 namespace Nidavellir
@@ -10,15 +11,13 @@ namespace Nidavellir
         private Animator m_animator;
         private CharacterController m_characterController;
         private GameObject m_currentInteractable;
+        private GameStateManager m_gameStateManager;
         private InputProcessor m_inputProcessor;
 
         private Vector3 m_moveDirection;
 
         private Vector2 m_screenBounds;
-
         public static PlayerController Instance { get; private set; }
-
-        public float VerticalSpeed => this.m_moveDirection.z * this.m_playerData.MovementSpeed;
 
 
         private void Awake()
@@ -36,26 +35,28 @@ namespace Nidavellir
             this.m_inputProcessor = this.GetComponent<InputProcessor>();
             this.m_characterController = this.GetComponent<CharacterController>();
             this.m_animator = this.GetComponent<Animator>();
+            this.m_gameStateManager = FindObjectOfType<GameStateManager>();
         }
 
         private void Start()
         {
             this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-            Debug.Log(this.m_screenBounds);
         }
 
         // Update is called once per frame
         private void Update()
         {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
+
             this.Move();
             this.TiltSpaceship();
             this.CheckShoot();
         }
 
-        private void LateUpdate()
+        public void Die()
         {
         }
-
 
         private void CheckShoot()
         {
