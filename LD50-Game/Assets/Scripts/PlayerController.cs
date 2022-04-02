@@ -16,7 +16,9 @@ namespace Nidavellir
 
         private Vector3 m_moveDirection;
 
+        private Rigidbody m_rigidbody;
         private Vector2 m_screenBounds;
+
         public static PlayerController Instance { get; private set; }
 
 
@@ -34,6 +36,7 @@ namespace Nidavellir
 
             this.m_inputProcessor = this.GetComponent<InputProcessor>();
             this.m_characterController = this.GetComponent<CharacterController>();
+            this.m_rigidbody = this.GetComponent<Rigidbody>();
             this.m_animator = this.GetComponent<Animator>();
             this.m_gameStateManager = FindObjectOfType<GameStateManager>();
         }
@@ -80,7 +83,10 @@ namespace Nidavellir
         protected void Move()
         {
             this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
-            this.m_characterController.Move(this.m_moveDirection * Time.deltaTime * this.m_playerData.MovementSpeed);
+            this.m_rigidbody.AddForce(this.m_moveDirection * this.m_playerData.Acceleration, ForceMode.Acceleration);
+            var velocity = Vector3.ClampMagnitude(this.m_rigidbody.velocity, this.m_playerData.MovementSpeed);
+            this.m_rigidbody.velocity = velocity;
+
 
             var pos = this.transform.position;
             pos.x = Mathf.Clamp(pos.x, -this.m_screenBounds.x, this.m_screenBounds.x);

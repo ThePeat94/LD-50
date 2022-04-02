@@ -7,11 +7,13 @@ namespace Scriptables
     {
         [SerializeField] private float m_movementSpeed;
         [SerializeField] private float m_rotationSpeed;
+        [SerializeField] private float m_acceleration;
         [SerializeField] private GameObject m_projectile;
 
 
         public float MovementSpeed => this.m_movementSpeed;
         public float RotationSpeed => this.m_rotationSpeed;
+        public float Acceleration => this.m_acceleration;
         public GameObject Projectile => this.m_projectile;
     }
 }

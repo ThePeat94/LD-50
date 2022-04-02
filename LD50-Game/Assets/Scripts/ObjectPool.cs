@@ -8,6 +8,7 @@ namespace Nidavellir
     {
         [SerializeField] private List<GameObject> m_poolSegments;
         [SerializeField] private float m_objectDistance;
+        [SerializeField] private ObjectSpawner m_objectSpawner;
 
         private Queue<GameObject> m_orderedSegments;
 
@@ -18,12 +19,21 @@ namespace Nidavellir
 
         public void PutLastToFirstPosition()
         {
+            this.ReorderSegments();
+        }
+
+        private void ReorderSegments()
+        {
             var first = this.m_orderedSegments.Dequeue();
             var last = this.m_orderedSegments.Last();
-
             first.transform.position = last.transform.position + new Vector3(0, 0, this.m_objectDistance);
-
             this.m_orderedSegments.Enqueue(first);
+            this.SetObjectSpawnerPosition(first.transform.position);
+        }
+
+        private void SetObjectSpawnerPosition(Vector3 pos)
+        {
+            this.m_objectSpawner.transform.position = pos;
         }
     }
 }
