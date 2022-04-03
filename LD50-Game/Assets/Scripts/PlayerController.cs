@@ -36,7 +36,9 @@ namespace Nidavellir
 
         public static PlayerController Instance { get; private set; }
 
-        public float Velocity => this.m_rigidbody.velocity.magnitude;
+        public float Speed => this.m_rigidbody.velocity.magnitude;
+        public Vector3 Velocity => this.m_rigidbody.velocity;
+        public float Acceleration => this.m_moveDirection.magnitude;
 
         public float PassedUnits { get; private set; }
 
@@ -75,9 +77,9 @@ namespace Nidavellir
 
             this.CheckShoot();
             if (this.m_rigidbody.velocity.z > 0)
-                this.PassedUnits += this.Velocity * Time.deltaTime;
+                this.PassedUnits += this.Speed * Time.deltaTime;
             else if (this.m_rigidbody.velocity.z < 0)
-                this.PassedUnits -= this.Velocity * Time.deltaTime;
+                this.PassedUnits -= this.Speed * Time.deltaTime;
         }
 
         // Update is called once per frame

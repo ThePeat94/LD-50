@@ -30,10 +30,12 @@ namespace Nidavellir
 
         private void Update()
         {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
+
             this.m_rigidbody.velocity = this.m_constantForce;
 
             var distance = Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position));
-            Debug.Log($"Distance: {distance}");
 
             if (distance <= this.m_fastDangerDistance)
                 DangerMusicPlayer.Instance.PlayFastDanger();
@@ -72,6 +74,7 @@ namespace Nidavellir
                 case GameState.Paused:
                 case GameState.GameOver:
                     this.m_constantForce = this.m_rigidbody.velocity = Vector3.zero;
+                    DangerMusicPlayer.Instance.Stop();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

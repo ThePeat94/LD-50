@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c587aeea498b4654a77ea04351e0b5ec, type: 3}
-  m_Name: Asteroid Spawn
+  m_Name: Small Aseroid Spawn
   m_EditorClassIdentifier: 
   m_minVelocity: 5
   m_maxVelocity: 30
   m_minRotationSpeed: -180
   m_maxRotationSpeed: 180
   m_frameCoolDown: 30
-  m_toSpawn: {fileID: 5349136519152693982, guid: c0769b4991dd60642a7355285f52efcc, type: 3}
+  m_toSpawn: {fileID: 5349136519152693982, guid: 5a351b0a5f369e244bb5cea1253a89d3, type: 3}

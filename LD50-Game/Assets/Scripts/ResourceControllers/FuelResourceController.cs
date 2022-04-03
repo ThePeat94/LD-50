@@ -33,7 +33,10 @@ namespace Nidavellir.ResourceControllers
             if (!this.CanNavigate)
                 return;
 
-            var currentPercentage = this.m_playerController.Velocity / this.m_playerData.MovementSpeed;
+            if (PlayerController.Instance.Acceleration <= 0.1f)
+                return;
+
+            var currentPercentage = this.m_playerController.Speed / this.m_playerData.MovementSpeed;
             var currentFuelUsage = this.m_maximumFuelUsagePerSecond * currentPercentage;
             this.ResourceController.UseResource(currentFuelUsage * Time.deltaTime);
         }

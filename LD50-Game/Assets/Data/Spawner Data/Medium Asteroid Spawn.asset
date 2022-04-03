@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c587aeea498b4654a77ea04351e0b5ec, type: 3}
-  m_Name: Fuel Canister Spawn
+  m_Name: Medium Asteroid Spawn
   m_EditorClassIdentifier: 
-  m_minVelocity: 2
-  m_maxVelocity: 10
-  m_minRotationSpeed: -75
-  m_maxRotationSpeed: 75
-  m_frameCoolDown: 75
-  m_toSpawn: {fileID: 2912415169596805023, guid: 900bbc5add82ac54fb165d99de3795cf, type: 3}
+  m_minVelocity: 5
+  m_maxVelocity: 30
+  m_minRotationSpeed: -180
+  m_maxRotationSpeed: 180
+  m_frameCoolDown: 30
+  m_toSpawn: {fileID: 5349136519152693982, guid: a48f80665abfcd54c93732f315132702, type: 3}

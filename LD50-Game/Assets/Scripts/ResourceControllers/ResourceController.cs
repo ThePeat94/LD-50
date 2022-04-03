@@ -1,6 +1,7 @@
 ﻿using System;
 using EventArgs;
 using Scriptables;
+using UnityEngine;
 
 public class ResourceController
 {
@@ -20,6 +21,7 @@ public class ResourceController
     public void Add(float value)
     {
         this.m_currentValue += value;
+        this.m_currentValue = Mathf.Clamp(this.m_currentValue, 0, this.MaxValue);
         this.m_resourceValueChanged?.Invoke(this, new ResourceValueChangedEventArgs(this.m_currentValue));
     }
 
