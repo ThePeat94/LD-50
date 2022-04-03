@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Low Fuel
   m_EditorClassIdentifier: 
   m_audioClip: {fileID: 8300000, guid: a810cd956f626044e8f12cdf8b4488c0, type: 3}
-  m_volume: 1
+  m_volume: 0.85

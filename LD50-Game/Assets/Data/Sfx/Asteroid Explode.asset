@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Asteroid Explode
   m_EditorClassIdentifier: 
   m_audioClip: {fileID: 8300000, guid: 34292ab6a3432334eb8fb9b118baea8e, type: 3}
-  m_volume: 1
+  m_volume: 0.4
