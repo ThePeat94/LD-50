@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shieldDamage: 1
+  m_slowDownFactor: 0.3
   m_randomExplodePlayer: {fileID: 6663738613439954815}
   m_randomPlayerHitPlayer: {fileID: 9151684829233330472}
 --- !u!114 &8984750078952451334

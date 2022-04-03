@@ -11,6 +11,8 @@ namespace Nidavellir.ResourceControllers
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private float m_maximumFuelUsagePerSecond;
         [SerializeField] private SfxData m_fuelLowSfx;
+        [SerializeField] private BlackHole m_blackHole;
+
 
         private OneShotSfxPlayer m_oneShotSfxPlayer;
         private PlayerController m_playerController;

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Fuel Resource Data
   m_EditorClassIdentifier: 
   m_initMaxValue: 100
-  m_startValue: 87.72616
+  m_startValue: 75

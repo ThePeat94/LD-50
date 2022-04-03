@@ -42,13 +42,11 @@ namespace Nidavellir
         private void OnBoostEnded(InputAction.CallbackContext ctx)
         {
             this.IsBoosting = false;
-            Debug.Log("Boost stopeed");
         }
 
         private void OnBoostStarted(InputAction.CallbackContext ctx)
         {
             this.IsBoosting = true;
-            Debug.Log("Boost started");
         }
     }
 }

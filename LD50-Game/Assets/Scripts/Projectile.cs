@@ -11,7 +11,6 @@ namespace Nidavellir
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"Projectile hit {other.gameObject}");
             var hittable = other.GetComponentInParent<IHittable>();
             if (hittable != null)
             {
