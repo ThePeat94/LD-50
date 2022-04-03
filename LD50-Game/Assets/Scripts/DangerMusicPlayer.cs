@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Nidavellir
 {
@@ -8,13 +9,16 @@ namespace Nidavellir
         [SerializeField] private AudioClip m_fastDangerMusic;
 
         private AudioSource m_audioSource;
+        private BlackHole m_blackHole;
         private AudioClip m_currentClip;
+
         public static DangerMusicPlayer Instance { get; private set; }
 
         private void Awake()
         {
             if (Instance == null)
             {
+                SceneManager.sceneLoaded += this.OnSceneChanged;
                 Instance = this;
                 DontDestroyOnLoad(this);
             }
@@ -26,6 +30,16 @@ namespace Nidavellir
 
             this.m_audioSource = this.GetComponent<AudioSource>();
             this.m_audioSource.loop = true;
+        }
+
+        private void Update()
+        {
+            if (this.m_blackHole != null)
+            {
+                var pos = this.transform.position;
+                pos.z = this.m_blackHole.Sphere.position.z;
+                this.transform.position = pos;
+            }
         }
 
         public void PlayFastDanger()
@@ -52,6 +66,15 @@ namespace Nidavellir
         {
             this.m_audioSource.Stop();
             this.m_currentClip = null;
+        }
+
+        private void OnSceneChanged(Scene arg0, LoadSceneMode arg1)
+        {
+            // TODO: CHANGE ME!!!!!
+            if (arg0.buildIndex == 0)
+                this.Stop();
+
+            this.m_blackHole = FindObjectOfType<BlackHole>();
         }
     }
 }

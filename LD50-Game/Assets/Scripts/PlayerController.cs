@@ -5,6 +5,7 @@ using Nidavellir.ResourceControllers;
 using Nidavellir.Utils;
 using Scriptables;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Nidavellir
 {
@@ -62,6 +63,7 @@ namespace Nidavellir
             this.m_fuelResourceController = this.GetComponent<FuelResourceController>();
             this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
             this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
+            SceneManager.sceneUnloaded += arg0 => Instance = null;
         }
 
         private void Update()

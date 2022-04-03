@@ -11,11 +11,14 @@ namespace Nidavellir
         [SerializeField] private GameObject m_distanceStartPoint;
         [SerializeField] private float m_slowDangerDistance;
         [SerializeField] private float m_fastDangerDistance;
+        [SerializeField] private Transform m_sphere;
 
 
         private Vector3 m_constantForce;
         private GameStateManager m_gameStateManager;
         private Rigidbody m_rigidbody;
+
+        public Transform Sphere => this.m_sphere;
 
         private void Awake()
         {
@@ -41,8 +44,6 @@ namespace Nidavellir
                 DangerMusicPlayer.Instance.PlayFastDanger();
             else if (distance <= this.m_slowDangerDistance)
                 DangerMusicPlayer.Instance.PlaySlowDanger();
-            else
-                DangerMusicPlayer.Instance.Stop();
         }
 
         private void OnTriggerEnter(Collider other)
