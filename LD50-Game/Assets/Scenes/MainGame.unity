@@ -25442,6 +25442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spawnerData:
   - {fileID: 11400000, guid: 0a92a469385a67844a4f4806178338f4, type: 2}
+  - {fileID: 11400000, guid: 83669f28dd2d77c4b97effca1d05bdd4, type: 2}
 --- !u!65 &1065501194
 BoxCollider:
   m_ObjectHideFlags: 0
