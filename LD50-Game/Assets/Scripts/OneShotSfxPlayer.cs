@@ -1,17 +1,15 @@
 ﻿using System.Collections;
+using Scriptables;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Nidavellir
 {
-    [RequireComponent(typeof(AudioListener))]
     public class OneShotSfxPlayer : MonoBehaviour
     {
-        public void PlayOneShot(AudioClip clipToPlay, float volume = 1f)
+        public void PlayOneShot(SfxData sfxData)
         {
-            if (clipToPlay == null)
-                return;
-            this.StartCoroutine(this.PlayClipAndDestroySource(clipToPlay, volume));
+            this.StartCoroutine(this.PlayClipAndDestroySource(sfxData.AudioClip, sfxData.Volume));
         }
 
         private IEnumerator PlayClipAndDestroySource(AudioClip clip, float volume)

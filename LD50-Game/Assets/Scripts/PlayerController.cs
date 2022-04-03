@@ -13,25 +13,26 @@ namespace Nidavellir
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private Transform m_projectileSpawn;
         [SerializeField] private Transform m_modelTransform;
+        [SerializeField] private SfxData m_projectileFireSfx;
+
 
         private readonly float m_maxTiltAngle = 30f;
         private readonly float m_maxTiltTime = 0.66f;
 
-        private Animator m_animator;
-        private GameObject m_currentInteractable;
-        private float m_elapsedTiltTime;
 
+        private Animator m_animator;
+        private float m_elapsedTiltTime;
         private FuelResourceController m_fuelResourceController;
         private GameStateManager m_gameStateManager;
         private InputProcessor m_inputProcessor;
         private int m_lastTiltDir;
 
         private Vector3 m_moveDirection;
+        private OneShotSfxPlayer m_oneShotSfxPlayer;
         private PlayerStatsManager m_playerStatsManager;
-
         private Rigidbody m_rigidbody;
-        private Vector2 m_screenBounds;
         private Coroutine m_tiltCoroutine;
+
 
         public static PlayerController Instance { get; private set; }
 
@@ -58,11 +59,7 @@ namespace Nidavellir
             this.m_gameStateManager.GameStateChanged += this.OnGameStateChanged;
             this.m_fuelResourceController = this.GetComponent<FuelResourceController>();
             this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
-        }
-
-        private void Start()
-        {
-            this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.y));
+            this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
         }
 
         private void Update()
@@ -153,6 +150,7 @@ namespace Nidavellir
             var instantiated = Instantiate(this.m_playerData.Projectile, this.m_projectileSpawn.position, Quaternion.identity);
             instantiated.GetComponent<Rigidbody>()
                 .AddForce(Vector3.forward * 50, ForceMode.Impulse);
+            this.m_oneShotSfxPlayer.PlayOneShot(this.m_projectileFireSfx);
         }
 
         private IEnumerator Tilt(Quaternion start, Quaternion end)

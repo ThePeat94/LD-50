@@ -8,6 +8,11 @@ namespace Nidavellir
     public class BlackHole : MonoBehaviour
     {
         [SerializeField] private float m_speed;
+        [SerializeField] private GameObject m_distanceStartPoint;
+        [SerializeField] private float m_slowDangerDistance;
+        [SerializeField] private float m_fastDangerDistance;
+
+
         private Vector3 m_constantForce;
         private GameStateManager m_gameStateManager;
         private Rigidbody m_rigidbody;
@@ -26,6 +31,16 @@ namespace Nidavellir
         private void Update()
         {
             this.m_rigidbody.velocity = this.m_constantForce;
+
+            var distance = Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position));
+            Debug.Log($"Distance: {distance}");
+
+            if (distance <= this.m_fastDangerDistance)
+                DangerMusicPlayer.Instance.PlayFastDanger();
+            else if (distance <= this.m_slowDangerDistance)
+                DangerMusicPlayer.Instance.PlaySlowDanger();
+            else
+                DangerMusicPlayer.Instance.Stop();
         }
 
         private void OnTriggerEnter(Collider other)

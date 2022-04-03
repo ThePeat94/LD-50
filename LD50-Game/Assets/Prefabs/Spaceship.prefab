@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 2521130498261460026}
   - component: {fileID: 2521130498261460027}
   - component: {fileID: 1250811084958926235}
+  - component: {fileID: 2521130498094628748}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Untagged
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_playerData: {fileID: 11400000, guid: c68983615adffc64ebaf38026f6b3804, type: 2}
   m_projectileSpawn: {fileID: 2521130499400602460}
   m_modelTransform: {fileID: 2699454607916611875}
+  m_projectileFireSfx: {fileID: 11400000, guid: 0353ab3a3b248a9429dde80e7aa78f8e, type: 2}
 --- !u!114 &2521130498261460006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +209,7 @@ MonoBehaviour:
   m_fuelData: {fileID: 11400000, guid: 497fb44a3eed7e342b698708ecd993c9, type: 2}
   m_playerData: {fileID: 11400000, guid: c68983615adffc64ebaf38026f6b3804, type: 2}
   m_maximumFuelUsagePerSecond: 5
+  m_fuelLowSfx: {fileID: 11400000, guid: 3de5be9b5680cdd4ca40a24548a5a7b6, type: 2}
 --- !u!114 &2521130498261460027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +236,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceData: {fileID: 11400000, guid: 921c5eb70ce8eee4ebb145556563f08b, type: 2}
+--- !u!114 &2521130498094628748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521130498261460003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5861a7e45a41c214f98af75401c6b8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2521130498526306104
 GameObject:
   m_ObjectHideFlags: 0
