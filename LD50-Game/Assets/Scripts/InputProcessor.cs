@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Nidavellir
 {
@@ -13,9 +14,13 @@ namespace Nidavellir
         public bool QuitTriggered => this.m_playerInput.Actions.Quit.triggered;
         public bool BackToMainTriggered => this.m_playerInput.Actions.BackToMenu.triggered;
 
+        public bool IsBoosting { get; private set; }
+
         private void Awake()
         {
             this.m_playerInput = new PlayerInput();
+            this.m_playerInput.Actions.Boost.started += this.OnBoostStarted;
+            this.m_playerInput.Actions.Boost.canceled += this.OnBoostEnded;
         }
 
         private void Update()
@@ -32,6 +37,18 @@ namespace Nidavellir
         {
             this.m_playerInput?.Disable();
             this.Movement = Vector3.zero;
+        }
+
+        private void OnBoostEnded(InputAction.CallbackContext ctx)
+        {
+            this.IsBoosting = false;
+            Debug.Log("Boost stopeed");
+        }
+
+        private void OnBoostStarted(InputAction.CallbackContext ctx)
+        {
+            this.IsBoosting = true;
+            Debug.Log("Boost started");
         }
     }
 }

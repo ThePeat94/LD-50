@@ -1,21 +1,13 @@
-﻿using Scriptables;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Nidavellir
 {
     public class Asteroid : MonoBehaviour, IHittable
     {
         [SerializeField] private int m_shieldDamage;
-        [SerializeField] private SfxData m_explodeSfx;
-        [SerializeField] private SfxData m_hitPlayerSfx;
+        [SerializeField] private RandomClipPlayer m_randomExplodePlayer;
+        [SerializeField] private RandomClipPlayer m_randomPlayerHitPlayer;
 
-
-        private OneShotSfxPlayer m_oneShotSfxPlayer;
-
-        private void Awake()
-        {
-            this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
-        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -24,7 +16,7 @@ namespace Nidavellir
                 Debug.Log("Asteroid has hit player");
                 shieldController.InflictDamage(this.m_shieldDamage);
                 this.DisableMesh();
-                this.PlaySfx(this.m_hitPlayerSfx);
+                this.m_randomPlayerHitPlayer.PlayRandomOneShot();
                 Destroy(this.gameObject, 2f);
             }
         }
@@ -32,7 +24,7 @@ namespace Nidavellir
         public void Hit()
         {
             this.DisableMesh();
-            this.PlaySfx(this.m_explodeSfx);
+            this.m_randomExplodePlayer.PlayRandomOneShot();
             Destroy(this.gameObject, 2f);
         }
 
@@ -42,11 +34,6 @@ namespace Nidavellir
                 .enabled = false;
             this.GetComponentInChildren<MeshRenderer>()
                 .enabled = false;
-        }
-
-        private void PlaySfx(SfxData toPlay)
-        {
-            this.m_oneShotSfxPlayer.PlayOneShot(toPlay);
         }
     }
 }

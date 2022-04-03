@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using Scriptables;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Nidavellir
 {
     public class DangerMusicPlayer : MonoBehaviour
     {
-        [SerializeField] private AudioClip m_slowDangerMusic;
-        [SerializeField] private AudioClip m_fastDangerMusic;
+        [SerializeField] private MusicData m_slowDangerMusic;
+        [SerializeField] private MusicData m_fastDangerMusic;
 
         private AudioSource m_audioSource;
         private BlackHole m_blackHole;
-        private AudioClip m_currentClip;
+        private MusicData m_currentClip;
 
         public static DangerMusicPlayer Instance { get; private set; }
 
@@ -48,7 +49,8 @@ namespace Nidavellir
                 return;
 
             this.m_currentClip = this.m_fastDangerMusic;
-            this.m_audioSource.clip = this.m_fastDangerMusic;
+            this.m_audioSource.clip = this.m_fastDangerMusic.MusicClip;
+            this.m_audioSource.volume = this.m_fastDangerMusic.Volume;
             this.m_audioSource.Play();
         }
 
@@ -58,7 +60,8 @@ namespace Nidavellir
                 return;
 
             this.m_currentClip = this.m_slowDangerMusic;
-            this.m_audioSource.clip = this.m_slowDangerMusic;
+            this.m_audioSource.clip = this.m_slowDangerMusic.MusicClip;
+            this.m_audioSource.volume = this.m_slowDangerMusic.Volume;
             this.m_audioSource.Play();
         }
 

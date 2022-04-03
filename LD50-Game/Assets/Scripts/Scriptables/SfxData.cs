@@ -6,7 +6,7 @@ namespace Scriptables
     public class SfxData : ScriptableObject
     {
         [SerializeField] private AudioClip m_audioClip;
-        [SerializeField] private float m_volume;
+        [SerializeField] private float m_volume = 1f;
 
         public AudioClip AudioClip => this.m_audioClip;
         public float Volume => this.m_volume;

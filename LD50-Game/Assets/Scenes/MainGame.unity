@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -153,9 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf001d67035d3a4cbed674838d7724a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_titleTheme: {fileID: 8300000, guid: 0e71cbb896eb0c547a606b1194bd52ce, type: 3}
-  m_gameThemeIntro: {fileID: 8300000, guid: 4d88df346b1d4ef43a3a29a8e8936ea4, type: 3}
-  m_gameTheme: {fileID: 8300000, guid: 4d88df346b1d4ef43a3a29a8e8936ea4, type: 3}
+  m_titleTheme: {fileID: 11400000, guid: 0dae0bdfdb0fc0c45aca30fd0dd844fb, type: 2}
+  m_gameTheme: {fileID: 11400000, guid: 922774b519061af4dae6b61b653fe22e, type: 2}
 --- !u!82 &309028089
 AudioSource:
   m_ObjectHideFlags: 0
@@ -399,8 +398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b197ca03d783435797aa253106296a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_slowDangerMusic: {fileID: 8300000, guid: ed4860c08cfc04348aaa604e334fe4f8, type: 3}
-  m_fastDangerMusic: {fileID: 8300000, guid: 2216315060b69014484f85e46db5c19f, type: 3}
+  m_slowDangerMusic: {fileID: 11400000, guid: f8f58fe4b65caea4cb02f829fe9274fb, type: 2}
+  m_fastDangerMusic: {fileID: 11400000, guid: 61d527353ff8da34f9127db977eb7c94, type: 2}
 --- !u!4 &557653225
 Transform:
   m_ObjectHideFlags: 0
@@ -850,7 +849,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065501192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 41.8}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 300, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1192,7 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0be57c6e01c47a0bf0dbd6a96c526cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameOverTheme: {fileID: 8300000, guid: f6dddbda32b319f46ae5b99e99131e8b, type: 3}
+  m_gameOverTheme: {fileID: 11400000, guid: 10ac9e81e04762b4d981a240a7a35fcd, type: 2}
 --- !u!4 &1969654854
 Transform:
   m_ObjectHideFlags: 0
@@ -1475,10 +1474,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 207918767768100905, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 207918767768100905, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 207918767768100905, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 207918767768100905, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 207918767768100905, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 561822651708212100, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
       propertyPath: m_shieldController
       value: 
       objectReference: {fileID: 2521130498094628747}
+    - target: {fileID: 1629664735522983527, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629664735522983527, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629664735522983527, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629664735522983527, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629664735522983527, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2486833247647093902, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
       propertyPath: m_fuelResourceController
       value: 

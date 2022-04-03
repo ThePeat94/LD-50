@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Scriptables;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,13 +8,11 @@ namespace Nidavellir
     [RequireComponent(typeof(AudioSource))]
     public class MusicPlayer : MonoBehaviour
     {
-        [SerializeField] private AudioClip m_titleTheme;
-        [SerializeField] private AudioClip m_gameTheme;
+        [SerializeField] private MusicData m_titleTheme;
+        [SerializeField] private MusicData m_gameTheme;
         private AudioSource m_audioSource;
 
-
-        private int m_lastLoadedSceneIndex;
-        private Coroutine m_queueRoutine;
+        private Coroutine m_playingCoroutine;
 
         public static MusicPlayer Instance { get; private set; }
 
@@ -35,65 +33,48 @@ namespace Nidavellir
             this.m_audioSource = this.GetComponent<AudioSource>();
         }
 
-        public void PlayClips(List<AudioClip> clipQueue)
+        public void PlayMusicData(MusicData toPlay)
         {
-            if (this.m_queueRoutine != null)
-            {
-                this.StopCoroutine(this.m_queueRoutine);
-                this.m_queueRoutine = null;
-                this.m_audioSource.Stop();
-            }
+            if (this.m_playingCoroutine != null)
+                this.StopCoroutine(this.m_playingCoroutine);
 
-            this.m_audioSource.loop = true;
-            this.m_queueRoutine = this.StartCoroutine(this.PlayQueue(clipQueue));
+            this.m_playingCoroutine = this.StartCoroutine(this.PlayClipList(toPlay));
         }
 
-        public void PlayLoopingMusic(AudioClip toPlay)
+        private void PlayClip(MusicData toPlay)
         {
-            if (this.m_queueRoutine != null)
-            {
-                this.StopCoroutine(this.m_queueRoutine);
-                this.m_queueRoutine = null;
-            }
-
-            this.PlayClip(toPlay, true);
-        }
-
-        public void PlayMusicOnce(AudioClip toPlay)
-        {
-            if (this.m_queueRoutine != null)
-            {
-                this.StopCoroutine(this.m_queueRoutine);
-                this.m_queueRoutine = null;
-            }
-
-            this.PlayClip(toPlay, false);
-        }
-
-        private void PlayClip(AudioClip toPlay, bool loop)
-        {
-            this.m_audioSource.clip = toPlay;
-            this.m_audioSource.loop = loop;
+            this.m_audioSource.clip = toPlay.MusicClip;
+            this.m_audioSource.volume = toPlay.Volume;
+            this.m_audioSource.loop = toPlay.Looping;
             this.m_audioSource.Play();
         }
 
-        private IEnumerator PlayQueue(List<AudioClip> toPlay)
+
+        private IEnumerator PlayClipList(MusicData toPlay)
         {
-            foreach (var current in toPlay)
+            var current = toPlay;
+
+            while (current != null)
             {
-                this.m_audioSource.clip = current;
-                this.m_audioSource.Play();
-                yield return new WaitForSeconds(current.length);
+                this.PlayClip(toPlay);
+                yield return new WaitForSeconds(current.MusicClip.length);
+                current = toPlay.FollowingClip;
             }
+
+            this.m_playingCoroutine = null;
         }
 
         private void SceneChanged(Scene loadedScene, LoadSceneMode arg1)
         {
             var hasLoadedMainMenu = loadedScene.buildIndex == 0;
+
+            if (this.m_playingCoroutine != null)
+                this.StopCoroutine(this.m_playingCoroutine);
+
             if (hasLoadedMainMenu)
-                this.PlayLoopingMusic(this.m_titleTheme);
+                this.m_playingCoroutine = this.StartCoroutine(this.PlayClipList(this.m_titleTheme));
             else if (loadedScene.buildIndex == 1)
-                this.PlayLoopingMusic(this.m_gameTheme);
+                this.m_playingCoroutine = this.StartCoroutine(this.PlayClipList(this.m_gameTheme));
         }
     }
 }

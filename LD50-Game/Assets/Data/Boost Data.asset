@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 543c2890177b40ef9982c92c11ae319d, type: 3}
-  m_Name: Asteroid Explode 2
+  m_Script: {fileID: 11500000, guid: 683a40397f644d6d870829b98ae6ba6f, type: 3}
+  m_Name: Boost Data
   m_EditorClassIdentifier: 
-  m_audioClip: {fileID: 8300000, guid: e656139fb17b8ba4aa26b88a5c2f251c, type: 3}
-  m_volume: 0.4
+  m_movementSpeedBoost: 25
+  m_accelerationBoost: 75
+  m_frameCountCooldown: 300
+  m_boostFrameCountDuration: 60

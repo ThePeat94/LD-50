@@ -9,7 +9,7 @@ namespace Nidavellir.UI
 
         private void Update()
         {
-            this.m_timerText.text = $"{LevelTimer.Instance.PastTimeSinceStart:mm\\:ss\\.fff}";
+            this.m_timerText.text = $"{LevelTimer.Instance.PastTimeSinceStart:mm\\:ss\\.ff}";
         }
     }
 }

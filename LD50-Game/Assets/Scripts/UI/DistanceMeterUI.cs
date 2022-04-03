@@ -9,7 +9,7 @@ namespace Nidavellir.UI
 
         private void Update()
         {
-            this.m_text.text = $"{PlayerController.Instance.PassedUnits:F2} Lightseconds";
+            this.m_text.text = $"{PlayerController.Instance.PassedUnits:F0} Lightseconds";
         }
     }
 }

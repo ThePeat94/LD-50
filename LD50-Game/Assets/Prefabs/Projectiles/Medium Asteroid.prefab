@@ -66,7 +66,8 @@ GameObject:
   - component: {fileID: 7974601833829043706}
   - component: {fileID: 2400531380843738488}
   - component: {fileID: 8984750078952451334}
-  - component: {fileID: -7196318306067097135}
+  - component: {fileID: -8635933267069652482}
+  - component: {fileID: -6696909850513658395}
   m_Layer: 0
   m_Name: Medium Asteroid
   m_TagString: Untagged
@@ -120,8 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shieldDamage: 2
-  m_explodeSfx: {fileID: 11400000, guid: 267400de4616d0749b06fff6ab21a1ab, type: 2}
-  m_hitPlayerSfx: {fileID: 11400000, guid: 340fdb172ec87b042abd8bba16015143, type: 2}
+  m_randomExplodePlayer: {fileID: -8635933267069652482}
+  m_randomPlayerHitPlayer: {fileID: -6696909850513658395}
 --- !u!114 &8984750078952451334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_modelTransform: {fileID: 3185253997437013888}
---- !u!114 &-7196318306067097135
+--- !u!114 &-8635933267069652482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,9 +145,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 5349136519152693982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5861a7e45a41c214f98af75401c6b8d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e9f23501c308394b8db031d3fb60d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_concurrentPlyback: 0
+  m_audioClips:
+  - {fileID: 11400000, guid: 267400de4616d0749b06fff6ab21a1ab, type: 2}
+  - {fileID: 11400000, guid: d7019b10b1d13d44d8e04c3654b05413, type: 2}
+--- !u!114 &-6696909850513658395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5349136519152693982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9f23501c308394b8db031d3fb60d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_concurrentPlyback: 0
+  m_audioClips:
+  - {fileID: 11400000, guid: 340fdb172ec87b042abd8bba16015143, type: 2}
+  - {fileID: 11400000, guid: cb8f037b51affdf4cb31c910665cfaff, type: 2}
 --- !u!1001 &3152223829101455467
 PrefabInstance:
   m_ObjectHideFlags: 0

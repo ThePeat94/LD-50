@@ -17,7 +17,7 @@ namespace Nidavellir.UI
             else
             {
                 text = PlayerController.Instance.Velocity.z >= 0 ? "" : "-";
-                text += $"{PlayerController.Instance.Speed:F2} ls/h";
+                text += $"{PlayerController.Instance.Speed:F0} ls/h";
             }
 
             this.m_speedometer.text = text;

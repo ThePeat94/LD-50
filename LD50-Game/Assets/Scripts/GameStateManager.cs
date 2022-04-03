@@ -1,6 +1,7 @@
 ﻿using System;
 using EventArgs;
 using Nidavellir.Utils;
+using Scriptables;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ namespace Nidavellir
 {
     public class GameStateManager : MonoBehaviour
     {
-        [SerializeField] private AudioClip m_gameOverTheme;
+        [SerializeField] private MusicData m_gameOverTheme;
 
         private EventHandler<GameStateChangedEventArgs> m_gameStateChanged;
         private InputProcessor m_inputProcessor;
@@ -56,7 +57,7 @@ namespace Nidavellir
         {
             this.TriggerGameState(GameState.GameOver);
             LevelTimer.Instance.StopStopWatch();
-            MusicPlayer.Instance.PlayMusicOnce(this.m_gameOverTheme);
+            MusicPlayer.Instance.PlayMusicData(this.m_gameOverTheme);
         }
 
         private void TriggerGameStarted()

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Asteroid hit player2
   m_EditorClassIdentifier: 
   m_audioClip: {fileID: 8300000, guid: e3e7535f37c04934fbdccf6ddeb8d3dd, type: 3}
-  m_volume: 0
+  m_volume: 0.3
