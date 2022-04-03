@@ -9,21 +9,14 @@ namespace Nidavellir
     {
         [SerializeField] private List<ObjectSpawnerData> m_spawnerData;
         private BoxCollider m_collider;
-
         private float m_framesSinceLastSpawn;
-
         private float m_lastSpawnPositionForX;
-        private float m_maxX;
-        private float m_minX;
 
         private Dictionary<ObjectSpawnerData, int> m_pastFramesSinceLastSpawn;
 
         private void Awake()
         {
             this.m_collider = this.GetComponent<BoxCollider>();
-            this.m_maxX = this.m_collider.bounds.extents.x;
-            this.m_minX = -this.m_collider.bounds.extents.x;
-
             this.m_pastFramesSinceLastSpawn = this.m_spawnerData.ToDictionary(o => o, o => 0);
         }
 
@@ -45,7 +38,9 @@ namespace Nidavellir
 
         private float GetRandomPositionForX()
         {
-            return Random.Range(this.m_minX, this.m_maxX);
+            var maxX = this.m_collider.bounds.extents.x;
+            var minX = -this.m_collider.bounds.extents.x;
+            return Random.Range(minX, maxX);
         }
 
         private Vector3 GetRandomTorque(ObjectSpawnerData data)

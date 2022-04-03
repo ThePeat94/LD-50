@@ -5,6 +5,7 @@ using Nidavellir.ResourceControllers;
 using Nidavellir.Utils;
 using Scriptables;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Nidavellir
 {
@@ -13,28 +14,32 @@ namespace Nidavellir
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private Transform m_projectileSpawn;
         [SerializeField] private Transform m_modelTransform;
+        [SerializeField] private SfxData m_projectileFireSfx;
+
 
         private readonly float m_maxTiltAngle = 30f;
         private readonly float m_maxTiltTime = 0.66f;
 
-        private Animator m_animator;
-        private GameObject m_currentInteractable;
-        private float m_elapsedTiltTime;
 
+        private Animator m_animator;
+        private float m_elapsedTiltTime;
         private FuelResourceController m_fuelResourceController;
         private GameStateManager m_gameStateManager;
         private InputProcessor m_inputProcessor;
         private int m_lastTiltDir;
 
         private Vector3 m_moveDirection;
-
+        private OneShotSfxPlayer m_oneShotSfxPlayer;
+        private PlayerStatsManager m_playerStatsManager;
         private Rigidbody m_rigidbody;
-        private Vector2 m_screenBounds;
         private Coroutine m_tiltCoroutine;
+
 
         public static PlayerController Instance { get; private set; }
 
-        public float Velocity => this.m_rigidbody.velocity.magnitude;
+        public float Speed => this.m_rigidbody.velocity.magnitude;
+        public Vector3 Velocity => this.m_rigidbody.velocity;
+        public float Acceleration => this.m_moveDirection.magnitude;
 
         public float PassedUnits { get; private set; }
 
@@ -56,14 +61,9 @@ namespace Nidavellir
             this.m_gameStateManager = FindObjectOfType<GameStateManager>();
             this.m_gameStateManager.GameStateChanged += this.OnGameStateChanged;
             this.m_fuelResourceController = this.GetComponent<FuelResourceController>();
-        }
-
-        private void Start()
-        {
-            this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
-            Debug.Log($"MovementSpeed: {this.m_playerData.MovementSpeed}");
-            Debug.Log($"Acceleration: {this.m_playerData.Acceleration}");
+            this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
+            this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
+            SceneManager.sceneUnloaded += arg0 => Instance = null;
         }
 
         private void Update()
@@ -79,9 +79,9 @@ namespace Nidavellir
 
             this.CheckShoot();
             if (this.m_rigidbody.velocity.z > 0)
-                this.PassedUnits += this.Velocity * Time.deltaTime;
+                this.PassedUnits += this.Speed * Time.deltaTime;
             else if (this.m_rigidbody.velocity.z < 0)
-                this.PassedUnits -= this.Velocity * Time.deltaTime;
+                this.PassedUnits -= this.Speed * Time.deltaTime;
         }
 
         // Update is called once per frame
@@ -154,6 +154,7 @@ namespace Nidavellir
             var instantiated = Instantiate(this.m_playerData.Projectile, this.m_projectileSpawn.position, Quaternion.identity);
             instantiated.GetComponent<Rigidbody>()
                 .AddForce(Vector3.forward * 50, ForceMode.Impulse);
+            this.m_oneShotSfxPlayer.PlayOneShot(this.m_projectileFireSfx);
         }
 
         private IEnumerator Tilt(Quaternion start, Quaternion end)
@@ -168,18 +169,15 @@ namespace Nidavellir
                 t = elapsedTime / this.m_maxTiltTime;
                 yield return new WaitForFixedUpdate();
             }
+
+            this.m_tiltCoroutine = null;
         }
 
         protected void Move()
         {
-            this.m_rigidbody.AddForce(this.m_moveDirection * this.m_playerData.Acceleration, ForceMode.Acceleration);
-            var velocity = Vector3.ClampMagnitude(this.m_rigidbody.velocity, this.m_playerData.MovementSpeed);
+            this.m_rigidbody.AddForce(this.m_moveDirection * this.m_playerStatsManager.PlayerStats.Acceleration, ForceMode.Acceleration);
+            var velocity = Vector3.ClampMagnitude(this.m_rigidbody.velocity, this.m_playerStatsManager.PlayerStats.MaxMovementSpeed);
             this.m_rigidbody.velocity = velocity;
-
-
-            var pos = this.transform.position;
-            pos.x = Mathf.Clamp(pos.x, -this.m_screenBounds.x, this.m_screenBounds.x);
-            this.transform.position = pos;
         }
     }
 }

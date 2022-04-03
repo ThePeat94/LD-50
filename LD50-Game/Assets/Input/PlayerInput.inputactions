@@ -208,6 +208,17 @@
                 },
                 {
                     "name": "",
+                    "id": "babdaa5d-8ac7-4db2-8dfd-cc18c9080a6a",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "cf8489ae-2e5d-473f-8bf6-7fb079afa6d9",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
