@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Fast Danger
   m_EditorClassIdentifier: 
   m_musicClip: {fileID: 8300000, guid: 2216315060b69014484f85e46db5c19f, type: 3}
-  m_volume: 1
+  m_volume: 0.3
   m_looping: 1
   m_followingClip: {fileID: 0}

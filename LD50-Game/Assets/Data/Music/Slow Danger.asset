@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Slow Danger
   m_EditorClassIdentifier: 
   m_musicClip: {fileID: 8300000, guid: ed4860c08cfc04348aaa604e334fe4f8, type: 3}
-  m_volume: 1
+  m_volume: 0.3
   m_looping: 1
   m_followingClip: {fileID: 0}

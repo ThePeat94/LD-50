@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Game Theme
   m_EditorClassIdentifier: 
   m_musicClip: {fileID: 8300000, guid: 4d88df346b1d4ef43a3a29a8e8936ea4, type: 3}
-  m_volume: 1
+  m_volume: 0.6
   m_looping: 1
   m_followingClip: {fileID: 0}

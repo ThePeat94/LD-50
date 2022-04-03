@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Game Over Theme
   m_EditorClassIdentifier: 
   m_musicClip: {fileID: 8300000, guid: f6dddbda32b319f46ae5b99e99131e8b, type: 3}
-  m_volume: 1
+  m_volume: 0.2
   m_looping: 0
   m_followingClip: {fileID: 0}
