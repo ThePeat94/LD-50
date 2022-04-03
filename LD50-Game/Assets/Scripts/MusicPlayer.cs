@@ -9,11 +9,9 @@ namespace Nidavellir
     public class MusicPlayer : MonoBehaviour
     {
         [SerializeField] private AudioClip m_titleTheme;
-        [SerializeField] private AudioClip m_gameThemeIntro;
         [SerializeField] private AudioClip m_gameTheme;
         private AudioSource m_audioSource;
 
-        private List<AudioClip> m_gameThemeClips;
 
         private int m_lastLoadedSceneIndex;
         private Coroutine m_queueRoutine;
@@ -35,11 +33,6 @@ namespace Nidavellir
             }
 
             this.m_audioSource = this.GetComponent<AudioSource>();
-            this.m_gameThemeClips = new List<AudioClip>
-            {
-                this.m_gameThemeIntro,
-                this.m_gameTheme
-            };
         }
 
         public void PlayClips(List<AudioClip> clipQueue)
@@ -97,13 +90,10 @@ namespace Nidavellir
         private void SceneChanged(Scene loadedScene, LoadSceneMode arg1)
         {
             var hasLoadedMainMenu = loadedScene.buildIndex == 0;
-            var hasSceneChanged = this.m_lastLoadedSceneIndex != loadedScene.buildIndex;
             if (hasLoadedMainMenu)
                 this.PlayLoopingMusic(this.m_titleTheme);
-            else if (hasSceneChanged)
-                this.PlayClips(this.m_gameThemeClips);
-
-            this.m_lastLoadedSceneIndex = loadedScene.buildIndex;
+            else if (loadedScene.buildIndex == 1)
+                this.PlayLoopingMusic(this.m_gameTheme);
         }
     }
 }

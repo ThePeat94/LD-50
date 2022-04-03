@@ -48,8 +48,7 @@ namespace Nidavellir
 
             if (this.CurrentState == GameState.GameOver && this.m_inputProcessor.ShootTriggered)
             {
-                // TODO: CHANGE ME!!!!
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(1);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using EventArgs;
+using Nidavellir.ResourceControllers;
 using Nidavellir.Utils;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Nidavellir
 
 
         private Vector3 m_constantForce;
+        private FuelResourceController m_fuelResourceController;
         private GameStateManager m_gameStateManager;
         private Rigidbody m_rigidbody;
 
