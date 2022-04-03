@@ -38,8 +38,8 @@ namespace Nidavellir
 
         private float GetRandomPositionForX()
         {
-            var maxX = this.m_collider.bounds.extents.x;
-            var minX = -this.m_collider.bounds.extents.x;
+            var maxX = this.m_collider.bounds.extents.x + this.transform.position.x;
+            var minX = -this.m_collider.bounds.extents.x + this.transform.position.x;
             return Random.Range(minX, maxX);
         }
 

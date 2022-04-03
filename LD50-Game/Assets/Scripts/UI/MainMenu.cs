@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Nidavellir;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -7,21 +9,19 @@ namespace UI
     {
         [SerializeField] private GameObject m_startMenu;
         [SerializeField] private GameObject m_credits;
+        [SerializeField] private Slider m_musicVolumeSlider;
+        [SerializeField] private Slider m_sfxVolumeSlider;
 
-        public void StartGame()
+        private void Awake()
         {
-            SceneManager.LoadScene(1);
+            this.m_musicVolumeSlider.onValueChanged.AddListener(this.MusicVolumeSliderChanged);
+            this.m_sfxVolumeSlider.onValueChanged.AddListener(this.SfxVolumeSliderChanged);
         }
 
-        public void QuitApplication()
+        private void Start()
         {
-            Application.Quit();
-        }
-
-        public void ShowCredits()
-        {
-            this.m_startMenu.SetActive(false);
-            this.m_credits.SetActive(true);
+            this.m_musicVolumeSlider.value = GlobalSettings.Instance.MusicVolume;
+            this.m_sfxVolumeSlider.value = GlobalSettings.Instance.SfxVolume;
         }
 
         public void BackFromCreditsToStart()
@@ -30,9 +30,35 @@ namespace UI
             this.m_credits.SetActive(false);
         }
 
+        public void MusicVolumeSliderChanged(float volume)
+        {
+            GlobalSettings.Instance.MusicVolume = volume;
+        }
+
         public void OpenLink(string url)
         {
             Application.OpenURL(url);
+        }
+
+        public void QuitApplication()
+        {
+            Application.Quit();
+        }
+
+        public void SfxVolumeSliderChanged(float volume)
+        {
+            GlobalSettings.Instance.SfxVolume = volume;
+        }
+
+        public void ShowCredits()
+        {
+            this.m_startMenu.SetActive(false);
+            this.m_credits.SetActive(true);
+        }
+
+        public void StartGame()
+        {
+            SceneManager.LoadScene(1);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Nidavellir
             this.m_audioSources[audioSourceIndex]
                 .PlayOneShot(this.m_audioClips[audioClipIndex]
                     .AudioClip, this.m_audioClips[audioClipIndex]
-                    .Volume);
+                    .Volume * GlobalSettings.Instance.SfxVolume);
         }
     }
 }

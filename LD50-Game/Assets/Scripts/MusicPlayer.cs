@@ -12,6 +12,8 @@ namespace Nidavellir
         [SerializeField] private MusicData m_gameTheme;
         private AudioSource m_audioSource;
 
+        private MusicData m_currentMusicData;
+
         private Coroutine m_playingCoroutine;
 
         public static MusicPlayer Instance { get; private set; }
@@ -31,6 +33,7 @@ namespace Nidavellir
             }
 
             this.m_audioSource = this.GetComponent<AudioSource>();
+            GlobalSettings.Instance.MusicVolumeChanged += this.OnMusicVolumeChanged;
         }
 
         public void PlayMusicData(MusicData toPlay)
@@ -41,10 +44,15 @@ namespace Nidavellir
             this.m_playingCoroutine = this.StartCoroutine(this.PlayClipList(toPlay));
         }
 
+        private void OnMusicVolumeChanged(object sender, System.EventArgs e)
+        {
+            this.m_audioSource.volume = this.m_currentMusicData.Volume * GlobalSettings.Instance.MusicVolume;
+        }
+
         private void PlayClip(MusicData toPlay)
         {
             this.m_audioSource.clip = toPlay.MusicClip;
-            this.m_audioSource.volume = toPlay.Volume;
+            this.m_audioSource.volume = toPlay.Volume * GlobalSettings.Instance.MusicVolume;
             this.m_audioSource.loop = toPlay.Looping;
             this.m_audioSource.Play();
         }
@@ -57,6 +65,7 @@ namespace Nidavellir
             while (current != null)
             {
                 this.PlayClip(current);
+                this.m_currentMusicData = current;
                 yield return new WaitForSeconds(current.MusicClip.length);
                 current = toPlay.FollowingClip;
             }

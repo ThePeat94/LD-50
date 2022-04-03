@@ -21,6 +21,7 @@ namespace Nidavellir
         private float m_speed;
 
         public Transform Sphere => this.m_sphere;
+        public float Speed => this.m_rigidbody.velocity.magnitude;
 
         private void Awake()
         {

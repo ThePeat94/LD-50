@@ -16,7 +16,7 @@ namespace Nidavellir
         {
             var audioSource = this.AddComponent<AudioSource>();
             audioSource.clip = clip;
-            audioSource.volume = volume;
+            audioSource.volume = volume * GlobalSettings.Instance.SfxVolume;
             audioSource.Play();
             yield return new WaitForSeconds(clip.length);
             Destroy(audioSource);
