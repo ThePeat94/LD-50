@@ -56,7 +56,7 @@ namespace Nidavellir
 
             while (current != null)
             {
-                this.PlayClip(toPlay);
+                this.PlayClip(current);
                 yield return new WaitForSeconds(current.MusicClip.length);
                 current = toPlay.FollowingClip;
             }
