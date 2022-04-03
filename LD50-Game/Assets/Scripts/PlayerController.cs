@@ -27,6 +27,7 @@ namespace Nidavellir
         private int m_lastTiltDir;
 
         private Vector3 m_moveDirection;
+        private PlayerStatsManager m_playerStatsManager;
 
         private Rigidbody m_rigidbody;
         private Vector2 m_screenBounds;
@@ -56,14 +57,12 @@ namespace Nidavellir
             this.m_gameStateManager = FindObjectOfType<GameStateManager>();
             this.m_gameStateManager.GameStateChanged += this.OnGameStateChanged;
             this.m_fuelResourceController = this.GetComponent<FuelResourceController>();
+            this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
         }
 
         private void Start()
         {
-            this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
-            Debug.Log($"MovementSpeed: {this.m_playerData.MovementSpeed}");
-            Debug.Log($"Acceleration: {this.m_playerData.Acceleration}");
+            this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.y));
         }
 
         private void Update()
@@ -168,18 +167,15 @@ namespace Nidavellir
                 t = elapsedTime / this.m_maxTiltTime;
                 yield return new WaitForFixedUpdate();
             }
+
+            this.m_tiltCoroutine = null;
         }
 
         protected void Move()
         {
-            this.m_rigidbody.AddForce(this.m_moveDirection * this.m_playerData.Acceleration, ForceMode.Acceleration);
-            var velocity = Vector3.ClampMagnitude(this.m_rigidbody.velocity, this.m_playerData.MovementSpeed);
+            this.m_rigidbody.AddForce(this.m_moveDirection * this.m_playerStatsManager.PlayerStats.Acceleration, ForceMode.Acceleration);
+            var velocity = Vector3.ClampMagnitude(this.m_rigidbody.velocity, this.m_playerStatsManager.PlayerStats.MaxMovementSpeed);
             this.m_rigidbody.velocity = velocity;
-
-
-            var pos = this.transform.position;
-            pos.x = Mathf.Clamp(pos.x, -this.m_screenBounds.x, this.m_screenBounds.x);
-            this.transform.position = pos;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Nidavellir.UI
 
         private void Update()
         {
-            this.m_speedometer.text = $"{PlayerController.Instance.Velocity:F2} ly/h";
+            this.m_speedometer.text = $"{PlayerController.Instance.Velocity:F2} ly/s";
         }
     }
 }
