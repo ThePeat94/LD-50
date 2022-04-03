@@ -1,79 +1,185 @@
-﻿using Scriptables;
+﻿using System;
+using System.Collections;
+using EventArgs;
+using Nidavellir.ResourceControllers;
+using Nidavellir.Utils;
+using Scriptables;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace Nidavellir
 {
-    private static PlayerController s_instance;
-
-    [SerializeField] private PlayerData m_playerData;
-
-    private Vector3 m_moveDirection;
-    private CharacterController m_characterController;
-    private InputProcessor m_inputProcessor;
-    private Animator m_animator;
-    private GameObject m_currentInteractable;
-    
-    private static readonly int s_isWalkingHash = Animator.StringToHash("IsWalking");
-
-    public static PlayerController Instance => s_instance;
-    
-    
-    private void Awake()
+    public class PlayerController : MonoBehaviour
     {
-        if (s_instance == null)
+        [SerializeField] private PlayerData m_playerData;
+        [SerializeField] private Transform m_projectileSpawn;
+        [SerializeField] private Transform m_modelTransform;
+
+        private readonly float m_maxTiltAngle = 30f;
+        private readonly float m_maxTiltTime = 0.66f;
+
+        private Animator m_animator;
+        private GameObject m_currentInteractable;
+        private float m_elapsedTiltTime;
+
+        private FuelResourceController m_fuelResourceController;
+        private GameStateManager m_gameStateManager;
+        private InputProcessor m_inputProcessor;
+        private int m_lastTiltDir;
+
+        private Vector3 m_moveDirection;
+
+        private Rigidbody m_rigidbody;
+        private Vector2 m_screenBounds;
+        private Coroutine m_tiltCoroutine;
+
+        public static PlayerController Instance { get; private set; }
+
+        public float Velocity => this.m_rigidbody.velocity.magnitude;
+
+        public float PassedUnits { get; private set; }
+
+        private void Awake()
         {
-            s_instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
+            this.m_inputProcessor = this.GetComponent<InputProcessor>();
+            this.m_rigidbody = this.GetComponent<Rigidbody>();
+            this.m_animator = this.GetComponent<Animator>();
+            this.m_gameStateManager = FindObjectOfType<GameStateManager>();
+            this.m_gameStateManager.GameStateChanged += this.OnGameStateChanged;
+            this.m_fuelResourceController = this.GetComponent<FuelResourceController>();
         }
-        else
+
+        private void Start()
         {
-            Destroy(this.gameObject);
-            return;
+            this.m_screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+
+            Debug.Log($"MovementSpeed: {this.m_playerData.MovementSpeed}");
+            Debug.Log($"Acceleration: {this.m_playerData.Acceleration}");
         }
-        
-        this.m_inputProcessor = this.GetComponent<InputProcessor>();
-        this.m_characterController = this.GetComponent<CharacterController>();
-        this.m_animator = this.GetComponent<Animator>();
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        this.Move();
-        this.Rotate();
-    }
 
-    private void LateUpdate()
-    {
-        this.UpdateAnimator();
-    }
-    
-    protected void Move()
-    {
-        this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, Physics.gravity.y, this.m_inputProcessor.Movement.y);
-        this.m_characterController.Move(this.m_moveDirection * Time.deltaTime * this.m_playerData.MovementSpeed);
-    }
-        
-    private void Rotate()
-    {
-        var targetDir = this.m_moveDirection;
-        targetDir.y = 0f;
+        private void Update()
+        {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
 
-        if (targetDir == Vector3.zero)
-            targetDir = this.transform.forward;
-    
-        this.RotateTowards(targetDir);
-    }
-
-    private void RotateTowards(Vector3 dir)
-    {
-        var lookRotation = Quaternion.LookRotation(dir.normalized);
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, this.m_playerData.RotationSpeed * Time.deltaTime);
-    }
-
-    private void UpdateAnimator()
-    {
-        this.m_animator.SetBool(s_isWalkingHash, this.m_moveDirection != Physics.gravity);
-    }
+            if (this.m_fuelResourceController.CanNavigate)
+                this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
+            else
+                this.m_moveDirection = Vector3.zero;
 
 
+            this.CheckShoot();
+            if (this.m_rigidbody.velocity.z > 0)
+                this.PassedUnits += this.Velocity * Time.deltaTime;
+            else if (this.m_rigidbody.velocity.z < 0)
+                this.PassedUnits -= this.Velocity * Time.deltaTime;
+        }
+
+        // Update is called once per frame
+        private void FixedUpdate()
+        {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
+
+            if (this.m_fuelResourceController.CanNavigate)
+                this.Move();
+            else
+                this.m_rigidbody.velocity = Vector3.zero;
+
+            this.DetermineTilt();
+        }
+
+        public void Die()
+        {
+        }
+
+        private void CheckShoot()
+        {
+            if (!this.m_inputProcessor.ShootTriggered)
+                return;
+
+            this.Shoot();
+        }
+
+        private void DetermineTilt()
+        {
+            var startRotation = this.m_modelTransform.rotation;
+            var newTiltDir = this.m_moveDirection.x switch
+            {
+                > 0 => 1,
+                < 0 => -1,
+                _ => 0
+            };
+
+            var targetRotation = Quaternion.Euler(0f, 180f, this.m_maxTiltAngle * newTiltDir);
+
+            if (this.m_lastTiltDir != newTiltDir)
+            {
+                if (this.m_tiltCoroutine != null)
+                    this.StopCoroutine(this.m_tiltCoroutine);
+
+                this.m_tiltCoroutine = this.StartCoroutine(this.Tilt(startRotation, targetRotation));
+            }
+
+            this.m_lastTiltDir = newTiltDir;
+        }
+
+        private void OnGameStateChanged(object sender, GameStateChangedEventArgs e)
+        {
+            switch (e.NewGameState)
+            {
+                case GameState.Started:
+                    break;
+                case GameState.Paused:
+                    break;
+                case GameState.GameOver:
+                    this.m_rigidbody.velocity = Vector3.zero;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void Shoot()
+        {
+            var instantiated = Instantiate(this.m_playerData.Projectile, this.m_projectileSpawn.position, Quaternion.identity);
+            instantiated.GetComponent<Rigidbody>()
+                .AddForce(Vector3.forward * 50, ForceMode.Impulse);
+        }
+
+        private IEnumerator Tilt(Quaternion start, Quaternion end)
+        {
+            var elapsedTime = 0f;
+            var t = elapsedTime / this.m_maxTiltTime;
+
+            while (t < 1)
+            {
+                this.m_modelTransform.rotation = Quaternion.Lerp(start, end, t);
+                elapsedTime += Time.fixedDeltaTime;
+                t = elapsedTime / this.m_maxTiltTime;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
+        protected void Move()
+        {
+            this.m_rigidbody.AddForce(this.m_moveDirection * this.m_playerData.Acceleration, ForceMode.Acceleration);
+            var velocity = Vector3.ClampMagnitude(this.m_rigidbody.velocity, this.m_playerData.MovementSpeed);
+            this.m_rigidbody.velocity = velocity;
+
+
+            var pos = this.transform.position;
+            pos.x = Mathf.Clamp(pos.x, -this.m_screenBounds.x, this.m_screenBounds.x);
+            this.transform.position = pos;
+        }
+    }
 }

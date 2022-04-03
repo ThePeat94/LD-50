@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollower : MonoBehaviour
 {
@@ -9,6 +7,6 @@ public class CameraFollower : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        this.transform.position = new Vector3(this.m_target.transform.position.x + 2, this.transform.position.y, this.m_target.position.z);
+        this.transform.position = new Vector3(this.m_target.transform.position.x, this.transform.position.y, this.m_target.position.z + 2);
     }
 }
