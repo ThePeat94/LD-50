@@ -62,7 +62,7 @@ namespace Nidavellir
         private void SpawnObject(ObjectSpawnerData data)
         {
             var spawned = Instantiate(data.ToSpawn, new Vector3(this.GetRandomPositionForX(), this.transform.position.y, this.transform.position.z), Quaternion.identity);
-            var asteroid = spawned.GetComponent<Asteroid>();
+            var asteroid = spawned.GetComponent<SpawnableObject>();
             asteroid.SetConstantVelocity(new Vector3(0f, 0f, -this.transform.forward.z * this.GetRandomVelocity(data)));
             asteroid.SetRandomRotation(this.GetRandomTorque(data));
         }

@@ -54,11 +54,13 @@ namespace Nidavellir
         public void TriggerGameOver()
         {
             this.TriggerGameState(GameState.GameOver);
+            LevelTimer.Instance.StopStopWatch();
         }
 
         private void TriggerGameStarted()
         {
             this.TriggerGameState(GameState.Started);
+            LevelTimer.Instance.RestartStopWatch();
         }
 
         private void TriggerGameState(GameState newState)

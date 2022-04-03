@@ -30,10 +30,20 @@ namespace Nidavellir
 
         private void OnTriggerEnter(Collider other)
         {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
+
             if (other.gameObject.TryGetComponent<PlayerController>(out var playerController))
             {
                 playerController.Die();
                 this.m_gameStateManager.TriggerGameOver();
+                return;
+            }
+
+            if (other.GetComponentInParent<Asteroid>() != null)
+            {
+                this.m_constantForce.z += 0.1f;
+                Destroy(other.transform.parent.gameObject);
             }
         }
 

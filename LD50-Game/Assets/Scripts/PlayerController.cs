@@ -1,4 +1,8 @@
-﻿using Nidavellir.Utils;
+﻿using System;
+using System.Collections;
+using EventArgs;
+using Nidavellir.ResourceControllers;
+using Nidavellir.Utils;
 using Scriptables;
 using UnityEngine;
 
@@ -8,19 +12,31 @@ namespace Nidavellir
     {
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private Transform m_projectileSpawn;
+        [SerializeField] private Transform m_modelTransform;
+
+        private readonly float m_maxTiltAngle = 30f;
+        private readonly float m_maxTiltTime = 0.66f;
+
         private Animator m_animator;
-        private CharacterController m_characterController;
         private GameObject m_currentInteractable;
+        private float m_elapsedTiltTime;
+
+        private FuelResourceController m_fuelResourceController;
         private GameStateManager m_gameStateManager;
         private InputProcessor m_inputProcessor;
+        private int m_lastTiltDir;
 
         private Vector3 m_moveDirection;
 
         private Rigidbody m_rigidbody;
         private Vector2 m_screenBounds;
+        private Coroutine m_tiltCoroutine;
 
         public static PlayerController Instance { get; private set; }
 
+        public float Velocity => this.m_rigidbody.velocity.magnitude;
+
+        public float PassedUnits { get; private set; }
 
         private void Awake()
         {
@@ -35,10 +51,11 @@ namespace Nidavellir
             }
 
             this.m_inputProcessor = this.GetComponent<InputProcessor>();
-            this.m_characterController = this.GetComponent<CharacterController>();
             this.m_rigidbody = this.GetComponent<Rigidbody>();
             this.m_animator = this.GetComponent<Animator>();
             this.m_gameStateManager = FindObjectOfType<GameStateManager>();
+            this.m_gameStateManager.GameStateChanged += this.OnGameStateChanged;
+            this.m_fuelResourceController = this.GetComponent<FuelResourceController>();
         }
 
         private void Start()
@@ -54,8 +71,17 @@ namespace Nidavellir
             if (this.m_gameStateManager.CurrentState != GameState.Started)
                 return;
 
-            this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
+            if (this.m_fuelResourceController.CanNavigate)
+                this.m_moveDirection = new Vector3(this.m_inputProcessor.Movement.x, 0, this.m_inputProcessor.Movement.y);
+            else
+                this.m_moveDirection = Vector3.zero;
+
+
             this.CheckShoot();
+            if (this.m_rigidbody.velocity.z > 0)
+                this.PassedUnits += this.Velocity * Time.deltaTime;
+            else if (this.m_rigidbody.velocity.z < 0)
+                this.PassedUnits -= this.Velocity * Time.deltaTime;
         }
 
         // Update is called once per frame
@@ -64,8 +90,12 @@ namespace Nidavellir
             if (this.m_gameStateManager.CurrentState != GameState.Started)
                 return;
 
-            this.Move();
-            this.TiltSpaceship();
+            if (this.m_fuelResourceController.CanNavigate)
+                this.Move();
+            else
+                this.m_rigidbody.velocity = Vector3.zero;
+
+            this.DetermineTilt();
         }
 
         public void Die()
@@ -80,6 +110,45 @@ namespace Nidavellir
             this.Shoot();
         }
 
+        private void DetermineTilt()
+        {
+            var startRotation = this.m_modelTransform.rotation;
+            var newTiltDir = this.m_moveDirection.x switch
+            {
+                > 0 => 1,
+                < 0 => -1,
+                _ => 0
+            };
+
+            var targetRotation = Quaternion.Euler(0f, 180f, this.m_maxTiltAngle * newTiltDir);
+
+            if (this.m_lastTiltDir != newTiltDir)
+            {
+                if (this.m_tiltCoroutine != null)
+                    this.StopCoroutine(this.m_tiltCoroutine);
+
+                this.m_tiltCoroutine = this.StartCoroutine(this.Tilt(startRotation, targetRotation));
+            }
+
+            this.m_lastTiltDir = newTiltDir;
+        }
+
+        private void OnGameStateChanged(object sender, GameStateChangedEventArgs e)
+        {
+            switch (e.NewGameState)
+            {
+                case GameState.Started:
+                    break;
+                case GameState.Paused:
+                    break;
+                case GameState.GameOver:
+                    this.m_rigidbody.velocity = Vector3.zero;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         private void Shoot()
         {
             var instantiated = Instantiate(this.m_playerData.Projectile, this.m_projectileSpawn.position, Quaternion.identity);
@@ -87,8 +156,18 @@ namespace Nidavellir
                 .AddForce(Vector3.forward * 50, ForceMode.Impulse);
         }
 
-        private void TiltSpaceship()
+        private IEnumerator Tilt(Quaternion start, Quaternion end)
         {
+            var elapsedTime = 0f;
+            var t = elapsedTime / this.m_maxTiltTime;
+
+            while (t < 1)
+            {
+                this.m_modelTransform.rotation = Quaternion.Lerp(start, end, t);
+                elapsedTime += Time.fixedDeltaTime;
+                t = elapsedTime / this.m_maxTiltTime;
+                yield return new WaitForFixedUpdate();
+            }
         }
 
         protected void Move()
