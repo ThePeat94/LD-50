@@ -11,12 +11,13 @@ namespace Nidavellir.ResourceControllers
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private float m_maximumFuelUsagePerSecond;
         [SerializeField] private SfxData m_fuelLowSfx;
-        [SerializeField] private BlackHole m_blackHole;
+        [SerializeField] private FuelControllerData m_fuelControllerData;
 
-
+        private int m_collectedCanisterAmount;
         private OneShotSfxPlayer m_oneShotSfxPlayer;
         private PlayerController m_playerController;
 
+        private PlayerStatsManager m_playerStatsManager;
         private Coroutine m_playSfxCoroutine;
 
         public ResourceController ResourceController { get; private set; }
@@ -28,6 +29,7 @@ namespace Nidavellir.ResourceControllers
             this.m_playerController = this.GetComponent<PlayerController>();
             this.ResourceController.ResourceValueChanged += this.OnFuelValueChanged;
             this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
+            this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
         }
 
         public void Update()
@@ -41,6 +43,21 @@ namespace Nidavellir.ResourceControllers
             var currentPercentage = this.m_playerController.Speed / this.m_playerData.MovementSpeed;
             var currentFuelUsage = this.m_maximumFuelUsagePerSecond * currentPercentage;
             this.ResourceController.UseResource(currentFuelUsage * Time.deltaTime);
+        }
+
+        public void AddCanister(float amount)
+        {
+            this.ResourceController.Add(amount);
+            this.m_collectedCanisterAmount++;
+
+            if (this.m_collectedCanisterAmount % this.m_fuelControllerData.SpeedUpgradeAfter == 0)
+                this.m_playerStatsManager.EffectWithGivenDelta(new PlayerStats
+                {
+                    MaxMovementSpeed = this.m_fuelControllerData.SpeedUpgradeAmount
+                });
+
+            if (this.m_collectedCanisterAmount % this.m_fuelControllerData.TankUpgradeAfter == 0)
+                this.ResourceController.IncreaseMaximum(this.m_fuelControllerData.TankUpgradeAmount);
         }
 
         private void OnFuelValueChanged(object sender, ResourceValueChangedEventArgs e)

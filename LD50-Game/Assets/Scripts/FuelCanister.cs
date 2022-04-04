@@ -21,7 +21,7 @@ namespace Nidavellir
         {
             if (other.TryGetComponent<FuelResourceController>(out var fuelController))
             {
-                fuelController.ResourceController.Add(this.m_amount);
+                fuelController.AddCanister(this.m_amount);
                 this.DisableMesh();
                 this.m_oneShotSfxPlayer.PlayOneShot(this.m_collectedSfx);
                 Destroy(this.gameObject, this.m_collectedSfx.AudioClip.length);
@@ -32,8 +32,10 @@ namespace Nidavellir
         {
             this.GetComponentInChildren<Collider>()
                 .enabled = false;
-            this.GetComponentInChildren<MeshRenderer>()
-                .enabled = false;
+
+            var renderers = this.GetComponentsInChildren<MeshRenderer>();
+            foreach (var meshRenderer in renderers)
+                meshRenderer.enabled = false;
 
             var canvasses = this.GetComponentsInChildren<Canvas>();
             foreach (var canvas in canvasses)

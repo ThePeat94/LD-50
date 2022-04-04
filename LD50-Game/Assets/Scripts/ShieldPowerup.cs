@@ -29,8 +29,10 @@ namespace Nidavellir
         {
             this.GetComponentInChildren<Collider>()
                 .enabled = false;
-            this.GetComponentInChildren<MeshRenderer>()
-                .enabled = false;
+
+            var renderers = this.GetComponentsInChildren<MeshRenderer>();
+            foreach (var meshRenderer in renderers)
+                meshRenderer.enabled = false;
 
             var canvasses = this.GetComponentsInChildren<Canvas>();
             foreach (var canvas in canvasses)

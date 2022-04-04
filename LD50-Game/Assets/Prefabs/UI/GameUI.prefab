@@ -479,8 +479,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9eeffd44929b187469c98409a92b260c, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3111,6 +3111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_slider: {fileID: 8908948949275602690}
   m_fuelResourceController: {fileID: 0}
+  m_sliderFillImage: {fileID: 3235442865474112379}
+  m_blinkColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7695787715502646085
 GameObject:
   m_ObjectHideFlags: 0
@@ -4019,8 +4021,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9eeffd44929b187469c98409a92b260c, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

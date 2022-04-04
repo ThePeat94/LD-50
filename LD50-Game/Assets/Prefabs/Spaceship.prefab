@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 2521130498094628749}
   - component: {fileID: 5156271232349238966}
   - component: {fileID: 3305578572141726208}
+  - component: {fileID: -4123023033660541102}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Untagged
@@ -371,7 +372,7 @@ MonoBehaviour:
   m_playerData: {fileID: 11400000, guid: c68983615adffc64ebaf38026f6b3804, type: 2}
   m_maximumFuelUsagePerSecond: 5
   m_fuelLowSfx: {fileID: 11400000, guid: 3de5be9b5680cdd4ca40a24548a5a7b6, type: 2}
-  m_blackHole: {fileID: 0}
+  m_fuelControllerData: {fileID: 11400000, guid: 2e35d2ff5dacfbf4aba31f50691effed, type: 2}
 --- !u!114 &2521130498261460027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,6 +454,19 @@ MonoBehaviour:
   - {fileID: 5039050395146206712}
   - {fileID: 6046163470827642498}
   m_arsenalData: {fileID: 11400000, guid: c1b0755a7a0e339499316993a4a4a2a3, type: 2}
+--- !u!114 &-4123023033660541102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521130498261460003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e1daadf0c9b4842b4c87ded58078d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxSpeedEffect: 0.05
 --- !u!1 &2521130498526306104
 GameObject:
   m_ObjectHideFlags: 0

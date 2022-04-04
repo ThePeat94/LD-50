@@ -10,12 +10,14 @@ namespace Nidavellir
         [SerializeField] private RandomClipPlayer m_randomExplodePlayer;
         [SerializeField] private RandomClipPlayer m_randomPlayerHitPlayer;
         private BlackHoleSuppressor m_blackHoleSuppressor;
+        private PlayerAsteroidTracker m_playerAsteroidTracker;
 
         public float SlowDownFactor => this.m_slowDownFactor;
 
         private void Awake()
         {
             this.m_blackHoleSuppressor = FindObjectOfType<BlackHoleSuppressor>();
+            this.m_playerAsteroidTracker = FindObjectOfType<PlayerAsteroidTracker>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -34,6 +36,7 @@ namespace Nidavellir
             this.DisableMesh();
             this.m_randomExplodePlayer.PlayRandomOneShot();
             this.m_blackHoleSuppressor.AsteroidDestroyed(this);
+            this.m_playerAsteroidTracker.AsteroidDestroyed();
             Destroy(this.gameObject, 2f);
         }
 
