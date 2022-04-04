@@ -52,6 +52,8 @@ namespace Nidavellir
                 DangerMusicPlayer.Instance.PlayFastDanger();
             else if (distance <= this.m_data.SlowDangerDistance)
                 DangerMusicPlayer.Instance.PlaySlowDanger();
+            else
+                DangerMusicPlayer.Instance.Stop();
 
             if (distance >= this.m_data.SlingDistance)
             {
