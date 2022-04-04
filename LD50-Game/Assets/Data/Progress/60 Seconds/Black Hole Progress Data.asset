@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Black Hole Progress Data
   m_EditorClassIdentifier: 
   m_additionalSpeed: 3
-  m_extraSpeedPerDestroyedObject: 0.1
+  m_extraSpeedPerDestroyedObject: 0.05

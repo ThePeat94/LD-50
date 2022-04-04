@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543c2890177b40ef9982c92c11ae319d, type: 3}
   m_Name: Boost reloaded
   m_EditorClassIdentifier: 
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a44493f5c2fc14347af43f7315fd4c1a, type: 3}
   m_volume: 1
