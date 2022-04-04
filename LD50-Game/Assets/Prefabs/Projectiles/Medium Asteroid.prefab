@@ -152,7 +152,6 @@ MonoBehaviour:
   m_concurrentPlyback: 0
   m_audioClips:
   - {fileID: 11400000, guid: 267400de4616d0749b06fff6ab21a1ab, type: 2}
-  - {fileID: 11400000, guid: d7019b10b1d13d44d8e04c3654b05413, type: 2}
 --- !u!114 &-6696909850513658395
 MonoBehaviour:
   m_ObjectHideFlags: 0

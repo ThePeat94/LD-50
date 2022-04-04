@@ -70,9 +70,9 @@ namespace Nidavellir
                 return;
             }
 
-            if (other.GetComponentInParent<Asteroid>() != null)
+            if (other.GetComponentInParent<SpawnableObject>() != null)
             {
-                this.EffectVelocity(0.1f);
+                this.EffectVelocity(0.03f);
                 Destroy(other.transform.parent.gameObject);
             }
         }

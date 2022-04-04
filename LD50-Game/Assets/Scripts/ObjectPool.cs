@@ -28,6 +28,18 @@ namespace Nidavellir
             var last = this.m_orderedSegments.Last();
             first.transform.position = last.transform.position + new Vector3(0, 0, this.m_objectDistance);
             this.m_orderedSegments.Enqueue(first);
+
+            var orderedList = this.m_orderedSegments.ToList();
+
+            foreach (var go in orderedList)
+                go.GetComponentInChildren<SegmentEnd>()
+                    .GetComponent<Collider>()
+                    .enabled = false;
+            orderedList[^2]
+                .GetComponentInChildren<SegmentEnd>()
+                .GetComponent<Collider>()
+                .enabled = true;
+
             this.SetObjectSpawnerPosition(first.transform.position);
         }
 

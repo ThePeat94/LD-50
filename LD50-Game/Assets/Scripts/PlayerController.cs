@@ -3,7 +3,6 @@ using System.Collections;
 using EventArgs;
 using Nidavellir.ResourceControllers;
 using Nidavellir.Utils;
-using Scriptables;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,10 +10,7 @@ namespace Nidavellir
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private PlayerData m_playerData;
-        [SerializeField] private Transform m_projectileSpawn;
         [SerializeField] private Transform m_modelTransform;
-        [SerializeField] private SfxData m_projectileFireSfx;
 
 
         private readonly float m_maxTiltAngle = 30f;
@@ -29,7 +25,6 @@ namespace Nidavellir
         private int m_lastTiltDir;
 
         private Vector3 m_moveDirection;
-        private OneShotSfxPlayer m_oneShotSfxPlayer;
         private PlayerStatsManager m_playerStatsManager;
         private Rigidbody m_rigidbody;
         private Coroutine m_tiltCoroutine;
@@ -62,7 +57,6 @@ namespace Nidavellir
             this.m_gameStateManager.GameStateChanged += this.OnGameStateChanged;
             this.m_fuelResourceController = this.GetComponent<FuelResourceController>();
             this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
-            this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
             SceneManager.sceneUnloaded += arg0 => Instance = null;
         }
 
@@ -76,8 +70,6 @@ namespace Nidavellir
             else
                 this.m_moveDirection = Vector3.zero;
 
-
-            this.CheckShoot();
             if (this.m_rigidbody.velocity.z > 0)
                 this.PassedUnits += this.Speed * Time.deltaTime;
             else if (this.m_rigidbody.velocity.z < 0)
@@ -102,13 +94,6 @@ namespace Nidavellir
         {
         }
 
-        private void CheckShoot()
-        {
-            if (!this.m_inputProcessor.ShootTriggered)
-                return;
-
-            this.Shoot();
-        }
 
         private void DetermineTilt()
         {
@@ -149,13 +134,6 @@ namespace Nidavellir
             }
         }
 
-        private void Shoot()
-        {
-            var instantiated = Instantiate(this.m_playerData.Projectile, this.m_projectileSpawn.position, Quaternion.identity);
-            instantiated.GetComponent<Rigidbody>()
-                .AddForce(Vector3.forward * 50, ForceMode.Impulse);
-            this.m_oneShotSfxPlayer.PlayOneShot(this.m_projectileFireSfx);
-        }
 
         private IEnumerator Tilt(Quaternion start, Quaternion end)
         {
