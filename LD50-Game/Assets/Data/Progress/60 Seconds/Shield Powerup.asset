@@ -16,5 +16,5 @@ MonoBehaviour:
   m_maxVelocity: 10
   m_minRotationSpeed: -75
   m_maxRotationSpeed: 75
-  m_frameCoolDown: 90
+  m_frameCoolDown: 60
   m_toSpawn: {fileID: 2912415169596805023, guid: 96854ee2e2fbda64a94d83a148635af8, type: 3}
