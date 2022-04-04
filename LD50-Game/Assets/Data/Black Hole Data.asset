@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Black Hole Data
   m_EditorClassIdentifier: 
   m_speed: 10
-  m_slowDangerDistance: 50
-  m_fastDangerDistance: 20
+  m_slowDangerDistance: 85
+  m_fastDangerDistance: 35
   m_slingDistance: 175
   m_slingStrength: 0.7
   m_minSpeed: 10
+  m_extraSpeedPerObject: 0
