@@ -8,7 +8,7 @@ namespace Nidavellir.UI
 
         private void Update()
         {
-            this.transform.RotateAround(this.transform.position, Vector3.up, this.m_rotationSpeed * Time.deltaTime);
+            this.transform.RotateAround(this.transform.position, this.transform.forward, this.m_rotationSpeed * Time.deltaTime);
         }
     }
 }

@@ -8,6 +8,13 @@ namespace Nidavellir
         private void Start()
         {
             this.StartCoroutine(this.Shrink());
+            this.SetRandomScale();
+        }
+
+        private void SetRandomScale()
+        {
+            var random = Random.Range(1, 15);
+            this.transform.localScale = Vector3.one * random;
         }
 
         private IEnumerator Shrink()
