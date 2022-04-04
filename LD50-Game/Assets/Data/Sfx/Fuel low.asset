@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543c2890177b40ef9982c92c11ae319d, type: 3}
   m_Name: Fuel low
   m_EditorClassIdentifier: 
-  m_audioClip: {fileID: 8300000, guid: 50211356c7cad184cb2170c8882bcdb0, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ca3f0bf76eba04140a3a1cfa2dcea75f, type: 3}
   m_volume: 1

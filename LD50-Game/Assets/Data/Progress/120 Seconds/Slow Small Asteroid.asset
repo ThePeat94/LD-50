@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c587aeea498b4654a77ea04351e0b5ec, type: 3}
   m_Name: Slow Small Asteroid
   m_EditorClassIdentifier: 
-  m_minVelocity: 20
-  m_maxVelocity: 60
+  m_minVelocity: 10
+  m_maxVelocity: 30
   m_minRotationSpeed: -50
   m_maxRotationSpeed: 50
-  m_frameCoolDown: 90
+  m_frameCoolDown: 60
   m_toSpawn: {fileID: 5349136519152693982, guid: 5a351b0a5f369e244bb5cea1253a89d3, type: 3}
