@@ -684,6 +684,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_shieldController: {fileID: 0}
   m_slider: {fileID: 6379636359166992826}
+  m_sliderFillImage: {fileID: 1396647243681930692}
+  m_blinkColor: {r: 0, g: 0.5131336, b: 0.6886792, a: 1}
 --- !u!1 &1703071787485751268
 GameObject:
   m_ObjectHideFlags: 0

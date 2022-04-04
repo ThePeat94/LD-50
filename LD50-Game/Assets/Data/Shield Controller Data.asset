@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 737cb94b9f059e744ab1bb9a0f213efb, type: 3}
-  m_Name: Shield Resource
+  m_Script: {fileID: 11500000, guid: a72a94395db24e81a762e855fb9b4d4d, type: 3}
+  m_Name: Shield Controller Data
   m_EditorClassIdentifier: 
-  m_initMaxValue: 3
-  m_startValue: 3
+  m_rechargeCooldownFrameCount: 90
+  m_rechargeIntervalSeconds: 0.2
+  m_shieldRechargeFrameAmount: 10
+  m_increaseMaxShieldAfterAmount: 10
