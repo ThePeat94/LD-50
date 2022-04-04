@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using EventArgs;
+using Nidavellir.ResourceControllers;
 using Scriptables;
 using UnityEngine;
 
@@ -8,8 +10,11 @@ namespace Nidavellir
     public class ObjectSpawner : MonoBehaviour
     {
         [SerializeField] private List<ObjectSpawnerData> m_spawnerData;
+        [SerializeField] private ObjectSpawnerData m_emergencyCanisterData;
+
         private BoxCollider m_collider;
         private float m_framesSinceLastSpawn;
+        private FuelResourceController m_fuelResourceController;
         private float m_lastSpawnPositionForX;
 
         private Dictionary<ObjectSpawnerData, int> m_pastFramesSinceLastSpawn;
@@ -18,6 +23,13 @@ namespace Nidavellir
         {
             this.m_collider = this.GetComponent<BoxCollider>();
             this.m_pastFramesSinceLastSpawn = this.m_spawnerData.ToDictionary(o => o, o => 0);
+            this.m_fuelResourceController = FindObjectOfType<FuelResourceController>();
+        }
+
+        private void Start()
+        {
+            if (this.m_fuelResourceController != null && this.m_emergencyCanisterData != null)
+                this.m_fuelResourceController.ResourceController.ResourceValueChanged += this.OnFuelValueChanged;
         }
 
         private void FixedUpdate()
@@ -42,6 +54,17 @@ namespace Nidavellir
             this.m_spawnerData = data;
         }
 
+        private void ActivateEmergencyCanisterRain()
+        {
+            if (!this.m_pastFramesSinceLastSpawn.ContainsKey(this.m_emergencyCanisterData))
+                this.m_pastFramesSinceLastSpawn.Add(this.m_emergencyCanisterData, 0);
+        }
+
+        private void DeactivateEmergencyCanisterRain()
+        {
+            this.m_pastFramesSinceLastSpawn.Remove(this.m_emergencyCanisterData);
+        }
+
         private float GetRandomPositionForX()
         {
             var maxX = this.m_collider.bounds.extents.x + this.transform.position.x;
@@ -58,6 +81,14 @@ namespace Nidavellir
         private float GetRandomVelocity(ObjectSpawnerData data)
         {
             return Random.Range(data.MinVelocity, data.MaxVelocity + 1);
+        }
+
+        private void OnFuelValueChanged(object sender, ResourceValueChangedEventArgs e)
+        {
+            if (e.NewValue / this.m_fuelResourceController.ResourceController.MaxValue <= 0.33f)
+                this.ActivateEmergencyCanisterRain();
+            else
+                this.DeactivateEmergencyCanisterRain();
         }
 
         private void SpawnObject(ObjectSpawnerData data)

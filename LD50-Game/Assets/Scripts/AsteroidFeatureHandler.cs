@@ -67,19 +67,19 @@ namespace Nidavellir
 
         private IEnumerator ActivateIncreaseEffect()
         {
-            yield return new WaitForSeconds(this.m_activateAsteroidSlowDownAfterSeconds);
+            yield return new WaitForSeconds(this.m_increasePlayerSpeedAfterSeconds);
             this.m_slowDownIfHit = true;
         }
 
         private IEnumerator ActivateShieldSlowDownEffect()
         {
-            yield return new WaitForSeconds(this.m_activateAsteroidSlowDownAfterSeconds);
+            yield return new WaitForSeconds(this.m_activateShieldSlowDownAfterSeconds);
             this.m_slowDownIfHit = true;
         }
 
         private void OnShieldValueChanged(object sender, ResourceValueChangedEventArgs e)
         {
-            if (e.NewValue == 0 && this.m_slowDownIfLostShield)
+            if (e.NewValue < 1 && this.m_slowDownIfLostShield)
             {
                 Debug.Log("Shield lost, losing 1 speed.");
                 this.m_playerStatsManager.EffectWithGivenDelta(new PlayerStats

@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_boostData: {fileID: 11400000, guid: 16651e908d9c8c646852b66e86d33ea5, type: 2}
+  m_chargedSfx: {fileID: 11400000, guid: 0e505df9ed739364c9b8969780d69c51, type: 2}
 --- !u!114 &3305578572141726208
 MonoBehaviour:
   m_ObjectHideFlags: 0
