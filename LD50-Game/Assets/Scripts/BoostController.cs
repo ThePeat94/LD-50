@@ -46,8 +46,6 @@ namespace Nidavellir
         {
             if (this.m_boostCoroutine != null)
                 this.m_currentBoostFrameCount++;
-            else if (this.m_chargeCoroutine == null && this.CurrentBoostCoolDown < this.m_boostData.FrameCountCooldown)
-                this.m_chargeCoroutine = this.StartCoroutine(this.RechargeBoost());
         }
 
         private IEnumerator Boost()
@@ -69,6 +67,9 @@ namespace Nidavellir
             this.m_playerStatsManager.RemoveEffect(delta);
             this.m_boostCoroutine = null;
             this.m_currentBoostFrameCount = 0;
+
+            if (this.m_chargeCoroutine == null)
+                this.m_chargeCoroutine = this.StartCoroutine(this.RechargeBoost());
         }
 
         private IEnumerator RechargeBoost()
@@ -79,8 +80,10 @@ namespace Nidavellir
                 this.CurrentBoostCoolDown++;
             }
 
+            Debug.Log("play boost reloaded sound");
+
             this.m_oneShotSfxPlayer.PlayOneShot(this.m_chargedSfx);
-            this.m_boostCoroutine = null;
+            this.m_chargeCoroutine = null;
         }
     }
 }
