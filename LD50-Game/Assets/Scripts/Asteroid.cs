@@ -6,27 +6,30 @@ namespace Nidavellir
     {
         [SerializeField] private int m_shieldDamage;
         [SerializeField] private float m_slowDownFactor;
+        [SerializeField] private float m_speedUpFactor;
+
 
         [SerializeField] private RandomClipPlayer m_randomExplodePlayer;
         [SerializeField] private RandomClipPlayer m_randomPlayerHitPlayer;
-        private BlackHoleSuppressor m_blackHoleSuppressor;
-        private PlayerAsteroidTracker m_playerAsteroidTracker;
+
+        private AsteroidFeatureHandler m_asteroidFeatureHandler;
 
         public float SlowDownFactor => this.m_slowDownFactor;
+        public int Damage => this.m_shieldDamage;
+        public float SpeedUpFactor => this.m_speedUpFactor;
 
         private void Awake()
         {
-            this.m_blackHoleSuppressor = FindObjectOfType<BlackHoleSuppressor>();
-            this.m_playerAsteroidTracker = FindObjectOfType<PlayerAsteroidTracker>();
+            this.m_asteroidFeatureHandler = FindObjectOfType<AsteroidFeatureHandler>();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<ShieldController>(out var shieldController))
+            if (other.TryGetComponent<PlayerController>(out _))
             {
-                shieldController.InflictDamage(this.m_shieldDamage);
                 this.DisableMesh();
                 this.m_randomPlayerHitPlayer.PlayRandomOneShot();
+                this.m_asteroidFeatureHandler.HandleAsteroidCollision(this);
                 Destroy(this.gameObject, 2f);
             }
         }
@@ -35,8 +38,7 @@ namespace Nidavellir
         {
             this.DisableMesh();
             this.m_randomExplodePlayer.PlayRandomOneShot();
-            this.m_blackHoleSuppressor?.AsteroidDestroyed(this);
-            this.m_playerAsteroidTracker.AsteroidDestroyed();
+            this.m_asteroidFeatureHandler.DestroyedAsteroid(this);
             Destroy(this.gameObject, 2f);
         }
 

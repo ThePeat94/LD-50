@@ -23,7 +23,7 @@ namespace Nidavellir
                 shieldController.AddCharge();
                 this.DisableMesh();
                 this.m_oneShotSfxPlayer.PlayOneShot(this.m_collectedSfx);
-                this.m_blackHole.EffectVelocity(-0.05f);
+                this.m_blackHole.EffectVelocity(-0.5f);
                 Destroy(this.gameObject, this.m_collectedSfx.AudioClip.length);
             }
         }

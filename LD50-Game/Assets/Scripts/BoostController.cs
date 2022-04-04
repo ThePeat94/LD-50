@@ -34,7 +34,6 @@ namespace Nidavellir
             if (this.m_inputProcessor.IsBoosting && this.m_boostCoroutine == null && this.CurrentBoostCoolDown > this.m_boostData.FrameCountCooldown)
             {
                 this.m_boostCoroutine = this.StartCoroutine(this.Boost());
-                this.CurrentBoostCoolDown = 0;
             }
         }
 
@@ -61,6 +60,7 @@ namespace Nidavellir
             while (this.m_inputProcessor.IsBoosting && this.m_currentBoostFrameCount <= this.m_boostData.BoostFrameCountDuration)
                 yield return new WaitForEndOfFrame();
 
+            this.CurrentBoostCoolDown = 0;
             this.m_playerStatsManager.RemoveEffect(delta);
             this.m_boostCoroutine = null;
             this.m_currentBoostFrameCount = 0;

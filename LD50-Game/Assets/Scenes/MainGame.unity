@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &120650903 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5392057130028358960, guid: 325be19a030674a4f9c719c57412bf41, type: 3}
-  m_PrefabInstance: {fileID: 5392057129515355010}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f5d27ea5b554f7491905843ff630524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &384767053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2301383344553167962, guid: 85d47ea644dd0064caabac3b673d9df1, type: 3}
@@ -657,7 +646,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2521130498261460026, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
   m_PrefabInstance: {fileID: 2521130498094628746}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723387626}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5912e528a10647fa9cd24834ae2455f0, type: 3}
@@ -1027,11 +1016,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1723387626 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2521130498261460003, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
-  m_PrefabInstance: {fileID: 2521130498094628746}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1963031651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1302,14 +1286,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1250811084958926235, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
-      propertyPath: m_shieldDownSfx
-      value: 
-      objectReference: {fileID: 11400000, guid: 0f0c170e140e3e8429fb80cd952cf616, type: 2}
-    - target: {fileID: 1250811084958926235, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
-      propertyPath: m_shieldControllerData
-      value: 
-      objectReference: {fileID: 11400000, guid: cbbd9966dcb539843867c41f699e0b85, type: 2}
     - target: {fileID: 2521130498261460000, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1358,22 +1334,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spaceship
       objectReference: {fileID: 0}
-    - target: {fileID: 2521130498261460026, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
-      propertyPath: m_blackHole
-      value: 
-      objectReference: {fileID: 120650903}
-    - target: {fileID: 2521130498261460026, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
-      propertyPath: m_fuelEmptySfx
-      value: 
-      objectReference: {fileID: 11400000, guid: 3de5be9b5680cdd4ca40a24548a5a7b6, type: 2}
-    - target: {fileID: 2521130498261460026, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
-      propertyPath: m_sfxAudioSource
-      value: 
-      objectReference: {fileID: 2521130498094628759}
-    - target: {fileID: 2521130498261460026, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
-      propertyPath: m_fuelLowWarningSfx
-      value: 
-      objectReference: {fileID: 11400000, guid: 65feb75c9a2ba39478f8c6bb5fdb3e65, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
 --- !u!114 &2521130498094628747 stripped
@@ -1381,132 +1341,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1250811084958926235, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
   m_PrefabInstance: {fileID: 2521130498094628746}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723387626}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c4dae87e1984780ab5aa3a5fc43cd87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2521130498094628758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723387626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e9f23501c308394b8db031d3fb60d27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_concurrentPlyback: 0
-  m_audioClips:
-  - {fileID: 11400000, guid: 9dad36e1654e193478e9ef1ca8753065, type: 2}
-  - {fileID: 11400000, guid: e6f3aa39e3cd61c4888f660a9ab337f2, type: 2}
-  - {fileID: 11400000, guid: 6e49d3ae8fab66c419522bc872889b67, type: 2}
-  - {fileID: 11400000, guid: 0659ffa65897dcc4388463246c16ed00, type: 2}
-  - {fileID: 11400000, guid: 85e65aa31a62a0b41a2c03d45448e5ea, type: 2}
-  - {fileID: 11400000, guid: 94c2e39ba4c647e45ab44a9d1b6c844d, type: 2}
-  - {fileID: 11400000, guid: a0b56aab2888413498f9d295f857cfc6, type: 2}
-  - {fileID: 11400000, guid: 122c8a18f4fee384d8ca9bbc10be3fa1, type: 2}
-  - {fileID: 11400000, guid: f8007dab76712884badd42f5cdc53d8e, type: 2}
-  - {fileID: 11400000, guid: e5537b68ac05b17498bf2b86c0adae80, type: 2}
---- !u!82 &2521130498094628759
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723387626}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1001 &4907824792743647974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1688,6 +1528,10 @@ PrefabInstance:
       propertyPath: m_fuelResourceController
       value: 
       objectReference: {fileID: 1041390512}
+    - target: {fileID: 3009782288568775812, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 308.09998
+      objectReference: {fileID: 0}
     - target: {fileID: 3290622760454533375, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 108.400024
@@ -1710,7 +1554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3868346758588601785, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -209.97363
+      value: -294.97754
       objectReference: {fileID: 0}
     - target: {fileID: 3873408777331175574, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1719,6 +1563,10 @@ PrefabInstance:
     - target: {fileID: 3947871592882596844, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011885199276754828, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 16.599976
       objectReference: {fileID: 0}
     - target: {fileID: 4728659493449558945, guid: 3494e97b2db4ead449b6244a2903326c, type: 3}
       propertyPath: m_hasFontAssetChanged
