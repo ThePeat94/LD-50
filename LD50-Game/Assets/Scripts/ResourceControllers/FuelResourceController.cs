@@ -69,7 +69,7 @@ namespace Nidavellir.ResourceControllers
                 if (this.m_playSfxCoroutine == null)
                     this.m_playSfxCoroutine = this.StartCoroutine(this.PlaySfx(this.m_fuelEmptySfx));
 
-            if (e.NewValue <= 0.3f)
+            if (e.NewValue / this.ResourceController.MaxValue <= 0.33f)
                 if (this.m_playSfxCoroutine == null)
                     this.m_playSfxCoroutine = this.StartCoroutine(this.PlaySfx(this.m_fuelLowWarningSfx));
         }

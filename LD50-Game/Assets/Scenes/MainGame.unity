@@ -1406,6 +1406,14 @@ PrefabInstance:
       propertyPath: m_blackHole
       value: 
       objectReference: {fileID: 120650903}
+    - target: {fileID: 2521130498261460026, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
+      propertyPath: m_fuelEmptySfx
+      value: 
+      objectReference: {fileID: 11400000, guid: 3de5be9b5680cdd4ca40a24548a5a7b6, type: 2}
+    - target: {fileID: 2521130498261460026, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
+      propertyPath: m_fuelLowWarningSfx
+      value: 
+      objectReference: {fileID: 11400000, guid: 65feb75c9a2ba39478f8c6bb5fdb3e65, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc981a898515ab045be19d8c0caad54b, type: 3}
 --- !u!114 &2521130498094628747 stripped
