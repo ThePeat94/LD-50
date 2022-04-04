@@ -8,27 +8,30 @@ namespace Nidavellir
     {
         [SerializeField] private BoostData m_boostData;
         private Coroutine m_boostCoroutine;
-        private int m_currentBoostCooldownFrameCount;
 
         private int m_currentBoostFrameCount;
 
         private InputProcessor m_inputProcessor;
         private PlayerStatsManager m_playerStatsManager;
 
+        public int CurrentBoostCoolDown { get; private set; }
+
+        public BoostData BoostData => this.m_boostData;
+
 
         private void Awake()
         {
             this.m_inputProcessor = this.GetComponent<InputProcessor>();
             this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
-            this.m_currentBoostCooldownFrameCount = this.m_boostData.FrameCountCooldown;
+            this.CurrentBoostCoolDown = this.m_boostData.FrameCountCooldown;
         }
 
         private void Update()
         {
-            if (this.m_inputProcessor.IsBoosting && this.m_boostCoroutine == null && this.m_currentBoostCooldownFrameCount > this.m_boostData.FrameCountCooldown)
+            if (this.m_inputProcessor.IsBoosting && this.m_boostCoroutine == null && this.CurrentBoostCoolDown > this.m_boostData.FrameCountCooldown)
             {
                 this.m_boostCoroutine = this.StartCoroutine(this.Boost());
-                this.m_currentBoostCooldownFrameCount = 0;
+                this.CurrentBoostCoolDown = 0;
             }
         }
 
@@ -37,7 +40,7 @@ namespace Nidavellir
             if (this.m_boostCoroutine != null)
                 this.m_currentBoostFrameCount++;
             else
-                this.m_currentBoostCooldownFrameCount++;
+                this.CurrentBoostCoolDown++;
         }
 
         private IEnumerator Boost()

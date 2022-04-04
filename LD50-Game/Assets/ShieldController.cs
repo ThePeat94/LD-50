@@ -22,12 +22,12 @@ namespace Nidavellir
             this.ResourceController.ResourceValueChanged += this.OnShieldValueChanged;
         }
 
-        public void AddCharge(int amount)
+        public void AddCharge()
         {
             if (this.m_currentState != ShieldState.Ready)
                 return;
 
-            this.ResourceController.Add(amount);
+            this.ResourceController.Add(1);
         }
 
         public void InflictDamage(int amount)
@@ -58,7 +58,7 @@ namespace Nidavellir
         {
             this.m_currentState = ShieldState.Recharging;
             yield return new WaitForSeconds(3f);
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < this.ResourceController.MaxValue; i++)
             {
                 this.ResourceController.Add(1);
                 yield return new WaitForSeconds(0.5f);

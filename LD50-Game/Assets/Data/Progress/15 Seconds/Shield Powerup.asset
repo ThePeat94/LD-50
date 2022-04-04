@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c587aeea498b4654a77ea04351e0b5ec, type: 3}
+  m_Name: Shield Powerup
+  m_EditorClassIdentifier: 
+  m_minVelocity: 2
+  m_maxVelocity: 10
+  m_minRotationSpeed: -75
+  m_maxRotationSpeed: 75
+  m_frameCoolDown: 100
+  m_toSpawn: {fileID: 2912415169596805023, guid: 96854ee2e2fbda64a94d83a148635af8, type: 3}

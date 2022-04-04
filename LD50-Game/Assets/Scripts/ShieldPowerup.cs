@@ -1,12 +1,10 @@
-﻿using Nidavellir.ResourceControllers;
-using Scriptables;
+﻿using Scriptables;
 using UnityEngine;
 
 namespace Nidavellir
 {
-    public class FuelCanister : MonoBehaviour
+    public class ShieldPowerup : MonoBehaviour
     {
-        [SerializeField] private float m_amount;
         [SerializeField] private SfxData m_collectedSfx;
 
         private OneShotSfxPlayer m_oneShotSfxPlayer;
@@ -16,12 +14,11 @@ namespace Nidavellir
             this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
         }
 
-
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<FuelResourceController>(out var fuelController))
+            if (other.TryGetComponent<ShieldController>(out var shieldController))
             {
-                fuelController.ResourceController.Add(this.m_amount);
+                shieldController.AddCharge();
                 this.DisableMesh();
                 this.m_oneShotSfxPlayer.PlayOneShot(this.m_collectedSfx);
                 Destroy(this.gameObject, this.m_collectedSfx.AudioClip.length);
