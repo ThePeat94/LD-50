@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Shield down
   m_EditorClassIdentifier: 
   m_audioClip: {fileID: 8300000, guid: 40c95cb404bea6648952c93d01802d32, type: 3}
-  m_volume: 1
+  m_volume: 0.7

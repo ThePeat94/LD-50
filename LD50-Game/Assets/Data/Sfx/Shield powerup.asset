@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Shield powerup
   m_EditorClassIdentifier: 
   m_audioClip: {fileID: 8300000, guid: fdee5b0b34892be498b58aadb8cf43e9, type: 3}
-  m_volume: 0.6
+  m_volume: 0.5

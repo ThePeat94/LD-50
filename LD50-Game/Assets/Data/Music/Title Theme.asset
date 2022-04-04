@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Title Theme
   m_EditorClassIdentifier: 
   m_musicClip: {fileID: 8300000, guid: 0e71cbb896eb0c547a606b1194bd52ce, type: 3}
-  m_volume: 1
+  m_volume: 0.8
   m_looping: 1
   m_followingClip: {fileID: 0}
