@@ -37,7 +37,7 @@ namespace Nidavellir.ResourceControllers
             if (!this.CanNavigate)
                 return;
 
-            if (PlayerController.Instance.Acceleration <= 0.1f)
+            if (PlayerController.Instance.Velocity.magnitude <= 0.1f)
                 return;
 
             var currentPercentage = this.m_playerController.Speed / this.m_playerData.MovementSpeed;
