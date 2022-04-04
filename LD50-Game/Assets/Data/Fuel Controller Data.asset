@@ -15,4 +15,4 @@ MonoBehaviour:
   m_speedUpgradeAfter: 5
   m_speedUpgradeAmount: 2
   m_tankUpgradeAfter: 10
-  m_tankUpgradeAmount: 1
+  m_tankUpgradeAmount: 2
