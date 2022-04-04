@@ -18,6 +18,9 @@ namespace Nidavellir
         private float m_currentExtraVelocityPerObject;
         private FuelResourceController m_fuelResourceController;
         private GameStateManager m_gameStateManager;
+        private float m_lastNoFuelTempo;
+
+        private bool m_playerHadNoFuel;
         private Rigidbody m_rigidbody;
         private float m_speed;
 
@@ -96,8 +99,19 @@ namespace Nidavellir
 
         private void OnFuelChanged(object sender, ResourceValueChangedEventArgs e)
         {
-            if (e.NewValue <= 0.1f)
-                this.EffectVelocity(0.25f * Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position)));
+            if (e.NewValue <= 0.1f && this.m_playerHadNoFuel == false)
+            {
+                this.m_lastNoFuelTempo = 0.5f * Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position));
+                this.EffectVelocity(this.m_lastNoFuelTempo);
+                this.m_playerHadNoFuel = true;
+            }
+
+            if (e.NewValue > 0.1f && this.m_playerHadNoFuel)
+            {
+                this.m_playerHadNoFuel = false;
+                this.EffectVelocity(-this.m_lastNoFuelTempo);
+                this.m_lastNoFuelTempo = 0;
+            }
         }
 
         private void OnGameStateChanged(object sender, GameStateChangedEventArgs args)

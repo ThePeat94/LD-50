@@ -13,6 +13,7 @@ namespace Nidavellir
         public bool ShootTriggered => this.m_playerInput.Actions.Shoot.triggered;
         public bool QuitTriggered => this.m_playerInput.Actions.Quit.triggered;
         public bool BackToMainTriggered => this.m_playerInput.Actions.BackToMenu.triggered;
+        public bool RetryTriggered => this.m_playerInput.Actions.Retry.triggered;
 
         public bool IsBoosting { get; private set; }
 

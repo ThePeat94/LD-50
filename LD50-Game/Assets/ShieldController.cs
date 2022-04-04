@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using EventArgs;
+using Nidavellir.Utils;
 using Scriptables;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Nidavellir
         private int m_collectedShields;
 
         private EventHandler m_finishedRecharging;
+        private GameStateManager m_gameStateManager;
         private OneShotSfxPlayer m_oneShotSfxPlayer;
 
         private PlayerStatsManager m_playerStatsManager;
@@ -46,6 +48,7 @@ namespace Nidavellir
             this.ResourceController = new ResourceController(this.m_resourceData);
             this.ResourceController.ResourceValueChanged += this.OnShieldValueChanged;
             this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
+            this.m_gameStateManager = FindObjectOfType<GameStateManager>();
         }
 
         public void AddCharge()
@@ -66,6 +69,9 @@ namespace Nidavellir
 
         public void InflictDamage(int amount)
         {
+            if (this.m_gameStateManager.CurrentState != GameState.Started)
+                return;
+
             if (this.CurrentState != ShieldState.Ready)
                 return;
 

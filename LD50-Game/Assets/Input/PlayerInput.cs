@@ -80,6 +80,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Retry"",
+                    ""type"": ""Button"",
+                    ""id"": ""d84a67c0-8077-4379-97d2-e57a0d85d6d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -313,6 +322,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Boost"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4cbc3209-6ca7-420d-9cf9-dd04e1f4177c"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65a29206-090d-41d5-98e2-92d9766a6e6a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -327,6 +358,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Actions_Quit = m_Actions.FindAction("Quit", throwIfNotFound: true);
         m_Actions_BackToMenu = m_Actions.FindAction("BackToMenu", throwIfNotFound: true);
         m_Actions_Boost = m_Actions.FindAction("Boost", throwIfNotFound: true);
+        m_Actions_Retry = m_Actions.FindAction("Retry", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -392,6 +424,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_Quit;
     private readonly InputAction m_Actions_BackToMenu;
     private readonly InputAction m_Actions_Boost;
+    private readonly InputAction m_Actions_Retry;
     public struct ActionsActions
     {
         private @PlayerInput m_Wrapper;
@@ -402,6 +435,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Quit => m_Wrapper.m_Actions_Quit;
         public InputAction @BackToMenu => m_Wrapper.m_Actions_BackToMenu;
         public InputAction @Boost => m_Wrapper.m_Actions_Boost;
+        public InputAction @Retry => m_Wrapper.m_Actions_Retry;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -429,6 +463,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Boost.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnBoost;
                 @Boost.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnBoost;
                 @Boost.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnBoost;
+                @Retry.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRetry;
+                @Retry.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRetry;
+                @Retry.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRetry;
             }
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -451,6 +488,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Boost.started += instance.OnBoost;
                 @Boost.performed += instance.OnBoost;
                 @Boost.canceled += instance.OnBoost;
+                @Retry.started += instance.OnRetry;
+                @Retry.performed += instance.OnRetry;
+                @Retry.canceled += instance.OnRetry;
             }
         }
     }
@@ -463,5 +503,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnQuit(InputAction.CallbackContext context);
         void OnBackToMenu(InputAction.CallbackContext context);
         void OnBoost(InputAction.CallbackContext context);
+        void OnRetry(InputAction.CallbackContext context);
     }
 }

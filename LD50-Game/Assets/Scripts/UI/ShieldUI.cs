@@ -46,7 +46,7 @@ namespace Nidavellir.UI
 
         private void OnStartedRecharging(object sender, System.EventArgs e)
         {
-            if (this.m_blinkCoroutine == null)
+            if (this.m_blinkCoroutine == null && this.isActiveAndEnabled)
                 this.m_blinkCoroutine = this.StartCoroutine(this.StartBlinking());
         }
 
