@@ -30,13 +30,9 @@ namespace UI
         {
             this.m_gameOverScreenPanel.SetActive(true);
             this.m_gameHudPanel.SetActive(false);
-            this.m_gameOverText.text = "Professor Brand, in the last few lightyears in front of the event horizon I decided to eject my blackbox. After trying to reach you for " +
-                                       $"{PlayerController.Instance.PassedUnits:F0} Lightseconds I could not keep distance to the black hole anymore. Every second of the {LevelTimer.Instance.PastTimeSinceStart:mm\\:ss\\.ff} " +
-                                       $"long escape I tried to think of your last words, before I left earth to find another planet to live on:{Environment.NewLine}{Environment.NewLine}" +
-                                       $"Do not go gentle into that good night,{Environment.NewLine}" + $"Old age should burn and rave at close of day;{Environment.NewLine}" +
-                                       $"Rage, rage against the dying of the light.{Environment.NewLine}" + $"{Environment.NewLine}" +
-                                       $"Though wise men at their end know dark is right,{Environment.NewLine}" + $"Because their words had forked no lightning they{Environment.NewLine}" +
-                                       "Do not go gentle into that good night.";
+            this.m_gameOverText.text =
+                $"In my last lightseconds in front of the black hole I decided to eject my black box.{Environment.NewLine}{Environment.NewLine}Goodbye World, I am sorry, I could not fulfil the mission for our greater needs.{Environment.NewLine}{Environment.NewLine}" +
+                $"During my mission I travelled {PlayerController.Instance.PassedUnits:F0} Lightseconds within {LevelTimer.Instance.PastTimeSinceStart:mm\\:ss\\.ff} Lightseconds.";
         }
 
         private void OnGameStateChanged(object sender, GameStateChangedEventArgs args)

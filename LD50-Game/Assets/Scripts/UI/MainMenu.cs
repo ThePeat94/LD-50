@@ -11,11 +11,14 @@ namespace UI
         [SerializeField] private GameObject m_credits;
         [SerializeField] private Slider m_musicVolumeSlider;
         [SerializeField] private Slider m_sfxVolumeSlider;
+        [SerializeField] private GameObject m_objectSpawner;
+
 
         private void Awake()
         {
             this.m_musicVolumeSlider.onValueChanged.AddListener(this.MusicVolumeSliderChanged);
             this.m_sfxVolumeSlider.onValueChanged.AddListener(this.SfxVolumeSliderChanged);
+            this.m_objectSpawner.SetActive(false);
         }
 
         private void Start()
@@ -28,6 +31,7 @@ namespace UI
         {
             this.m_startMenu.SetActive(true);
             this.m_credits.SetActive(false);
+            this.m_objectSpawner.SetActive(false);
         }
 
         public void MusicVolumeSliderChanged(float volume)
@@ -54,6 +58,7 @@ namespace UI
         {
             this.m_startMenu.SetActive(false);
             this.m_credits.SetActive(true);
+            this.m_objectSpawner.SetActive(true);
         }
 
         public void StartGame()
