@@ -72,7 +72,7 @@ namespace Nidavellir
 
             if (other.GetComponentInParent<SpawnableObject>() != null)
             {
-                this.EffectVelocity(0.03f);
+                this.EffectVelocity(0.1f);
                 Destroy(other.transform.parent.gameObject);
             }
         }
