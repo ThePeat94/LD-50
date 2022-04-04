@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using EventArgs;
+﻿using EventArgs;
 using Scriptables;
 using UnityEngine;
 
@@ -13,6 +12,7 @@ namespace Nidavellir.ResourceControllers
         [SerializeField] private SfxData m_fuelEmptySfx;
         [SerializeField] private SfxData m_fuelLowWarningSfx;
         [SerializeField] private FuelControllerData m_fuelControllerData;
+        [SerializeField] private AudioSource m_sfxAudioSource;
 
         private int m_collectedCanisterAmount;
         private OneShotSfxPlayer m_oneShotSfxPlayer;
@@ -66,19 +66,28 @@ namespace Nidavellir.ResourceControllers
         private void OnFuelValueChanged(object sender, ResourceValueChangedEventArgs e)
         {
             if (e.NewValue <= 0.1f)
-                if (this.m_playSfxCoroutine == null)
-                    this.m_playSfxCoroutine = this.StartCoroutine(this.PlaySfx(this.m_fuelEmptySfx));
-
-            if (e.NewValue / this.ResourceController.MaxValue <= 0.33f)
-                if (this.m_playSfxCoroutine == null)
-                    this.m_playSfxCoroutine = this.StartCoroutine(this.PlaySfx(this.m_fuelLowWarningSfx));
+            {
+                this.PlaySfx(this.m_fuelEmptySfx);
+            }
+            else if (e.NewValue / this.ResourceController.MaxValue <= 0.33f)
+            {
+                this.PlaySfx(this.m_fuelLowWarningSfx);
+            }
+            else
+            {
+                this.m_sfxAudioSource.Stop();
+                this.m_sfxAudioSource.clip = null;
+            }
         }
 
-        private IEnumerator PlaySfx(SfxData sfxData)
+        private void PlaySfx(SfxData sfxData)
         {
-            this.m_oneShotSfxPlayer.PlayOneShot(sfxData);
-            yield return new WaitForSeconds(sfxData.AudioClip.length);
-            this.m_playSfxCoroutine = null;
+            if (this.m_sfxAudioSource.clip != sfxData.AudioClip || this.m_sfxAudioSource.time >= sfxData.AudioClip.length)
+            {
+                this.m_sfxAudioSource.clip = sfxData.AudioClip;
+                this.m_sfxAudioSource.volume = sfxData.Volume * GlobalSettings.Instance.SfxVolume;
+                this.m_sfxAudioSource.Play();
+            }
         }
     }
 }

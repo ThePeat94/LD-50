@@ -47,7 +47,7 @@ namespace Nidavellir
                 return;
             }
 
-            if (this.CurrentState == GameState.GameOver && this.m_inputProcessor.ShootTriggered)
+            if (this.CurrentState == GameState.GameOver && this.m_inputProcessor.RetryTriggered)
             {
                 SceneManager.LoadScene(1);
             }
