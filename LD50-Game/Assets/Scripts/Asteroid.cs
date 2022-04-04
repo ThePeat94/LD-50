@@ -35,7 +35,7 @@ namespace Nidavellir
         {
             this.DisableMesh();
             this.m_randomExplodePlayer.PlayRandomOneShot();
-            this.m_blackHoleSuppressor.AsteroidDestroyed(this);
+            this.m_blackHoleSuppressor?.AsteroidDestroyed(this);
             this.m_playerAsteroidTracker.AsteroidDestroyed();
             Destroy(this.gameObject, 2f);
         }
