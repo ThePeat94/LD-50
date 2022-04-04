@@ -6,7 +6,7 @@ namespace Nidavellir
     {
         private void Awake()
         {
-            Destroy(this.gameObject, 5f);
+            Destroy(this.gameObject, 2f);
         }
 
         private void OnTriggerEnter(Collider other)

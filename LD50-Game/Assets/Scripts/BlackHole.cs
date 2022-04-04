@@ -101,7 +101,7 @@ namespace Nidavellir
         {
             if (e.NewValue <= 0.1f && this.m_playerHadNoFuel == false)
             {
-                this.m_lastNoFuelTempo = 0.5f * Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position));
+                this.m_lastNoFuelTempo = 0.33f * Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position));
                 this.EffectVelocity(this.m_lastNoFuelTempo);
                 this.m_playerHadNoFuel = true;
             }

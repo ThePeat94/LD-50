@@ -80,9 +80,7 @@ namespace Nidavellir
 
         private void OnSceneChanged(Scene arg0, LoadSceneMode arg1)
         {
-            if (arg0.buildIndex == 1)
-                this.Stop();
-
+            this.Stop();
             this.m_blackHole = FindObjectOfType<BlackHole>();
         }
     }

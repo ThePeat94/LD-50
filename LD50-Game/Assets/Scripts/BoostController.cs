@@ -16,6 +16,7 @@ namespace Nidavellir
         private RandomClipPlayer m_randomClipPlayer;
 
         public int CurrentBoostCoolDown { get; private set; }
+        public int BoostCoolDown => this.m_boostData.FrameCountCooldown;
 
         public BoostData BoostData => this.m_boostData;
 
