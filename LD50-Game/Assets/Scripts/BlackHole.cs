@@ -57,7 +57,6 @@ namespace Nidavellir
 
             if (distance >= this.m_data.SlingDistance)
             {
-                Debug.Log("Sling sling");
                 this.transform.position = Vector3.Lerp(this.transform.position, PlayerController.Instance.transform.position, this.m_data.SlingStrength * Time.deltaTime);
             }
         }
@@ -98,7 +97,7 @@ namespace Nidavellir
         private void OnFuelChanged(object sender, ResourceValueChangedEventArgs e)
         {
             if (e.NewValue <= 0.1f)
-                this.EffectVelocity(0.5f * Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position)));
+                this.EffectVelocity(0.25f * Mathf.Abs(Vector3.Distance(this.m_distanceStartPoint.transform.position, PlayerController.Instance.transform.position)));
         }
 
         private void OnGameStateChanged(object sender, GameStateChangedEventArgs args)

@@ -10,13 +10,16 @@ namespace Nidavellir
     {
         [SerializeField] private ResourceData m_resourceData;
         [SerializeField] private ShieldControllerData m_shieldControllerData;
+        [SerializeField] private SfxData m_shieldDownSfx;
+
 
         private int m_collectedShields;
+
         private EventHandler m_finishedRecharging;
+        private OneShotSfxPlayer m_oneShotSfxPlayer;
 
         private PlayerStatsManager m_playerStatsManager;
         private Coroutine m_rechargeCoroutine;
-
         private EventHandler m_startedRecharging;
 
         public ResourceController ResourceController { get; private set; }
@@ -42,6 +45,7 @@ namespace Nidavellir
             this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
             this.ResourceController = new ResourceController(this.m_resourceData);
             this.ResourceController.ResourceValueChanged += this.OnShieldValueChanged;
+            this.m_oneShotSfxPlayer = this.GetComponent<OneShotSfxPlayer>();
         }
 
         public void AddCharge()
@@ -82,6 +86,8 @@ namespace Nidavellir
 
                 if (this.m_rechargeCoroutine == null)
                     this.m_rechargeCoroutine = this.StartCoroutine(this.RechargeShield(delta));
+
+                this.m_oneShotSfxPlayer.PlayOneShot(this.m_shieldDownSfx);
             }
         }
 

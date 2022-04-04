@@ -13,6 +13,7 @@ namespace Nidavellir
 
         private InputProcessor m_inputProcessor;
         private PlayerStatsManager m_playerStatsManager;
+        private RandomClipPlayer m_randomClipPlayer;
 
         public int CurrentBoostCoolDown { get; private set; }
 
@@ -24,6 +25,7 @@ namespace Nidavellir
             this.m_inputProcessor = this.GetComponent<InputProcessor>();
             this.m_playerStatsManager = this.GetComponent<PlayerStatsManager>();
             this.CurrentBoostCoolDown = this.m_boostData.FrameCountCooldown;
+            this.m_randomClipPlayer = this.GetComponent<RandomClipPlayer>();
         }
 
         private void Update()
@@ -52,6 +54,7 @@ namespace Nidavellir
             };
 
             this.m_playerStatsManager.EffectWithGivenDelta(delta);
+            this.m_randomClipPlayer.PlayRandomOneShot();
 
 
             while (this.m_inputProcessor.IsBoosting && this.m_currentBoostFrameCount <= this.m_boostData.BoostFrameCountDuration)

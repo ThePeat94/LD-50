@@ -10,7 +10,8 @@ namespace Nidavellir.ResourceControllers
         [SerializeField] private ResourceData m_fuelData;
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private float m_maximumFuelUsagePerSecond;
-        [SerializeField] private SfxData m_fuelLowSfx;
+        [SerializeField] private SfxData m_fuelEmptySfx;
+        [SerializeField] private SfxData m_fuelLowWarningSfx;
         [SerializeField] private FuelControllerData m_fuelControllerData;
 
         private int m_collectedCanisterAmount;
@@ -40,9 +41,11 @@ namespace Nidavellir.ResourceControllers
             if (PlayerController.Instance.Velocity.magnitude <= 0.1f)
                 return;
 
+            var consumptionFactor = PlayerController.Instance.Acceleration > 0 ? 1f : 0.75f;
+
             var currentPercentage = this.m_playerController.Speed / this.m_playerData.MovementSpeed;
             var currentFuelUsage = this.m_maximumFuelUsagePerSecond * currentPercentage;
-            this.ResourceController.UseResource(currentFuelUsage * Time.deltaTime);
+            this.ResourceController.UseResource(currentFuelUsage * Time.deltaTime * consumptionFactor);
         }
 
         public void AddCanister(float amount)
@@ -64,13 +67,17 @@ namespace Nidavellir.ResourceControllers
         {
             if (e.NewValue <= 0.1f)
                 if (this.m_playSfxCoroutine == null)
-                    this.m_playSfxCoroutine = this.StartCoroutine(this.PlaySfx());
+                    this.m_playSfxCoroutine = this.StartCoroutine(this.PlaySfx(this.m_fuelEmptySfx));
+
+            if (e.NewValue <= 0.3f)
+                if (this.m_playSfxCoroutine == null)
+                    this.m_playSfxCoroutine = this.StartCoroutine(this.PlaySfx(this.m_fuelLowWarningSfx));
         }
 
-        private IEnumerator PlaySfx()
+        private IEnumerator PlaySfx(SfxData sfxData)
         {
-            this.m_oneShotSfxPlayer.PlayOneShot(this.m_fuelLowSfx);
-            yield return new WaitForSeconds(this.m_fuelLowSfx.AudioClip.length);
+            this.m_oneShotSfxPlayer.PlayOneShot(sfxData);
+            yield return new WaitForSeconds(sfxData.AudioClip.length);
             this.m_playSfxCoroutine = null;
         }
     }
