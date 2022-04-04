@@ -11,6 +11,8 @@ namespace Scriptables
         [SerializeField] private float m_slingDistance;
         [SerializeField] [Range(0f, 1f)] private float m_slingStrength;
         [SerializeField] private float m_minSpeed;
+        [SerializeField] private float m_extraSpeedPerObject;
+
 
         public float MinSpeed => this.m_minSpeed;
         public float Speed => this.m_speed;
@@ -18,5 +20,6 @@ namespace Scriptables
         public float FastDangerDistance => this.m_fastDangerDistance;
         public float SlingDistance => this.m_slingDistance;
         public float SlingStrength => this.m_slingStrength;
+        public float ExtraSpeedPerObject => this.m_extraSpeedPerObject;
     }
 }

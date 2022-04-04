@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c587aeea498b4654a77ea04351e0b5ec, type: 3}
+  m_Name: Medium Asteroid Spawn
+  m_EditorClassIdentifier: 
+  m_minVelocity: 5
+  m_maxVelocity: 15
+  m_minRotationSpeed: -180
+  m_maxRotationSpeed: 180
+  m_frameCoolDown: 30
+  m_toSpawn: {fileID: 5349136519152693982, guid: a48f80665abfcd54c93732f315132702, type: 3}

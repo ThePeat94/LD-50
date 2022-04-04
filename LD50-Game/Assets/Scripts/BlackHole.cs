@@ -15,6 +15,7 @@ namespace Nidavellir
 
 
         private Vector3 m_constantForce;
+        private float m_currentExtraVelocityPerObject;
         private FuelResourceController m_fuelResourceController;
         private GameStateManager m_gameStateManager;
         private Rigidbody m_rigidbody;
@@ -28,6 +29,7 @@ namespace Nidavellir
             this.m_gameStateManager = FindObjectOfType<GameStateManager>();
             this.m_gameStateManager.GameStateChanged += this.OnGameStateChanged;
             this.m_speed = this.m_data.Speed;
+            this.m_currentExtraVelocityPerObject = this.m_data.ExtraSpeedPerObject;
         }
 
         private void Start()
@@ -72,9 +74,15 @@ namespace Nidavellir
 
             if (other.GetComponentInParent<SpawnableObject>() != null)
             {
-                this.EffectVelocity(0.1f);
+                this.EffectVelocity(this.m_currentExtraVelocityPerObject);
                 Destroy(other.transform.parent.gameObject);
             }
+        }
+
+        public void ActivateData(BlackHoleProgressData data)
+        {
+            this.m_currentExtraVelocityPerObject = data.ExtraSpeedPerDestroyedObject;
+            this.EffectVelocity(data.AdditionalSpeed);
         }
 
         public void EffectVelocity(float effect)

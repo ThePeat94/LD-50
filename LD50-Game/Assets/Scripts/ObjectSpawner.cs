@@ -36,6 +36,12 @@ namespace Nidavellir
             }
         }
 
+        public void ActivateData(List<ObjectSpawnerData> data)
+        {
+            this.m_pastFramesSinceLastSpawn = data.ToDictionary(o => o, o => 0);
+            this.m_spawnerData = data;
+        }
+
         private float GetRandomPositionForX()
         {
             var maxX = this.m_collider.bounds.extents.x + this.transform.position.x;

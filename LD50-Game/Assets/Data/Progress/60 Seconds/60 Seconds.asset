@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b195c800eb4a8eb2ef6fe7559f1672, type: 3}
+  m_Name: 60 Seconds
+  m_EditorClassIdentifier: 
+  m_blackHoleData: {fileID: 11400000, guid: 42e8295a07b93614aa90fbacd46fd245, type: 2}
+  m_spawnerData:
+  - {fileID: 11400000, guid: 6d53f1a1c33048245af12fde3127505d, type: 2}
+  - {fileID: 11400000, guid: 6074c64bda02fad4c93da7180b553ea6, type: 2}
+  - {fileID: 11400000, guid: 9cdaf24c44a69cd46a0086a894cfaefc, type: 2}
+  - {fileID: 11400000, guid: dc2bfaa00d5bebb4788965fff6da5c78, type: 2}
+  - {fileID: 11400000, guid: 663eb9b1833c5e84792c9ace5dc0e661, type: 2}
+  m_activatesAfterSeconds: 60
